@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vũ Hồng Anh - Gia Sư Tiếng Anh</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #0a192f;
+            --secondary: #64ffda;
+            --text-main: #ccd6f6;
+            --text-muted: #8892b0;
+            --bg-card: #112240;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 { color: var(--text-main); }
+        .highlight { color: var(--secondary); }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section (About Me) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .hero-content {
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 1s ease forwards;
+        }
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 20px; }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat-badge {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .stat-badge:hover { transform: scale(1.1); }
+
+        /* Courses Section - 3D Flip Cards */
+        .courses { padding: 100px 0; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* 3D Card Mechanics */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 400px;
+            perspective: 1000px; /* Thêm chiều sâu 3D */
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+        .flip-card-front {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .flip-card-back {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transform: rotateY(180deg);
+            align-items: flex-start;
+            text-align: left;
+        }
+        .flip-card-front h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .flip-card-back h3 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--primary); padding-bottom: 10px; width: 100%;}
+        .flip-card-back ul { padding-left: 20px; font-weight: 500;}
+
+        /* Footer */
+        footer { text-align: center; padding: 20px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Về Bản Thân -->
+        <section class="hero">
+            <div class="hero-content">
+                <p class="highlight">Xin chào, mình là</p>
+                <h1>Vũ Hồng Anh</h1>
+                <h2>Gia Sư Tiếng Anh Chuyên Nghiệp</h2>
+                <p>Sinh viên năm 3 Ngôn ngữ Anh - ULIS. Gần 3 năm kinh nghiệm giảng dạy thực tế. Tích hợp nền tảng ngôn ngữ chuyên sâu cùng tư duy nhạy bén để mang đến phương pháp học tập tối ưu, không học vẹt.</p>
+                <div class="stats">
+                    <div class="stat-badge">IELTS 7.0</div>
+                    <div class="stat-badge">GPA 3.3/4.0</div>
+                    <div class="stat-badge">Giảng dạy từ 2024</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lộ Trình Khóa Học -->
+        <section class="courses">
+            <h2 class="section-title">Lộ Trình <span class="highlight">Khóa Học</span></h2>
+            
+            <div class="card-grid">
+                <!-- Card IELTS -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>IELTS 6.0+</h3>
+                            <p>144 buổi ~ 1.5 năm</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Di chuột để xem lộ trình 3 giai đoạn</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Lộ trình IELTS</h3>
+                            <ul>
+                                <li><strong>GĐ 1 (Nền tảng):</strong> Xây dựng khung tư duy, làm quen các dạng bài (Mục tiêu 4.5+).</li>
+                                <li><strong>GĐ 2 (Lý thuyết):</strong> Chuyên sâu trau dồi từng dạng bài Reading, Listening, Task 1, 2.</li>
+                                <li><strong>GĐ 3 (Về đích):</strong> Thực chiến luyện đề Cambridge & Plus dưới áp lực thời gian.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Ôn Thi Vào 10 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Ôn Thi Vào 10</h3>
+                            <p>Bao gồm thi Chuyên</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Di chuột để xem lộ trình 3 giai đoạn</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Lộ trình Lớp 10</h3>
+                            <ul>
+                                <li><strong>GĐ 1:</strong> Xây dựng nền móng 16 chuyên đề ngữ pháp (Ngữ âm, Bị động, Điều kiện...).</li>
+                                <li><strong>GĐ 2:</strong> Ôn tập theo dạng đề (Đọc hiểu, Viết, Từ vựng).</li>
+                                <li><strong>GĐ 3:</strong> Luyện đề thi thử, tháo gỡ khúc mắc để thực chiến.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Ôn THPT -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Ôn Thi THPT Quốc Gia</h3>
+                            <p>Nắm vững kiến thức gốc</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Di chuột để xem lộ trình 3 giai đoạn</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Lộ trình THPT</h3>
+                            <ul>
+                                <li><strong>GĐ 1:</strong> Nắm chắc cấu trúc ngữ pháp (Hòa hợp C-V, Mạo từ, Mệnh đề QH...).</li>
+                                <li><strong>GĐ 2:</strong> Ôn tập chuyên sâu dạng bài khó (Đọc điền khuyết, Đọc hiểu dài).</li>
+                                <li><strong>GĐ 3:</strong> Luyện đề bám sát cấu trúc Bộ GD&ĐT.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Vũ Hồng Anh. All Rights Reserved.</p>
+        <p>Liên hệ: pinkanh911@gmail.com | SĐT: 0868448794</p>
+    </footer>
+
+</body>
+</html>
