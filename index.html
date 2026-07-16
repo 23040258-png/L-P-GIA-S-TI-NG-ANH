@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vũ Hồng Anh - Gia Sư Tiếng Anh </title>
+    <title>Vũ Hồng Anh - Gia Sư Tiếng Anh</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -108,22 +108,30 @@
         .stage-header h3 { font-size: 1.3rem; color: var(--primary-blue); margin-bottom: 5px; }
         .stage-header p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* Roadmap Grid (Skills inside Stage) */
+        /* Custom IELTS Grid Layout */
+        .ielts-layout { display: flex; flex-direction: column; gap: 20px; }
+        .ielts-row-top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .ielts-row-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        
         .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
         .skill-card { background: var(--bg-body); border-radius: 8px; padding: 20px; border: 1px solid var(--border-color); }
         .skill-title { font-weight: 700; color: var(--text-dark); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .skill-title span { background: var(--light-blue); color: var(--primary-blue); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
 
+        @media (max-width: 900px) {
+            .ielts-row-top, .ielts-row-bottom { grid-template-columns: 1fr; }
+        }
+
         /* Session Lists */
         .session-list { list-style: none; }
         .session-list li {
-            display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.95rem; color: var(--text-gray);
-            border-bottom: 1px dashed var(--border-color); padding-bottom: 8px;
+            display: flex; gap: 10px; margin-bottom: 5px; font-size: 0.9rem; color: var(--text-gray);
+            border-bottom: 1px dashed var(--border-color); padding-bottom: 5px; align-items: flex-start;
         }
         .session-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .sess-tag {
             font-weight: 600; color: var(--primary-blue); min-width: 65px; flex-shrink: 0;
-            font-size: 0.85rem; background: white; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color); text-align: center; height: fit-content;
+            font-size: 0.8rem; background: white; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color); text-align: center; height: fit-content;
         }
 
         /* Tables for Summary */
@@ -150,9 +158,9 @@
     <!-- PROFILE HEADER -->
     <div class="profile-header">
         <h1>Vũ Hồng Anh</h1>
-        <div class="subtitle">Gia Sư Tiếng Anh Chuyên Nghiệp<!--[cite: 1] --></div>
+        <div class="subtitle">Gia Sư Tiếng Anh<!--[cite: 1] --></div>
         <div class="contact-info">
-            <span>🎓 IELTS 7.0 (Academic)<!--[cite: 1] --></span>
+            <span>🎓 IELTS 7.0 (C1)<!--[cite: 1] --></span>
             <span>📍 963 Lê Đức Thọ, Hà Nội<!--[cite: 1] --></span>
             <span>📞 0868448794<!--[cite: 1] --></span>
             <span>✉️ pinkanh911@gmail.com<!--[cite: 1] --></span>
@@ -176,7 +184,7 @@
                     <div class="cv-item">
                         <h4>Chuyên ngành Ngôn ngữ Anh<!--[cite: 1] --></h4>
                         <div class="date">2023 - Nay</div>
-                        <p style="color: var(--text-gray); font-size: 0.95rem;">Trường Đại học Ngoại ngữ - ULIS<br>GPA hiện tại: 3.3/4.0<!--[cite: 1] --></p>
+                        <p style="color: var(--text-gray); font-size: 0.95rem;">Trường Đại học Ngoại ngữ - ULIS<br>GPA hiện tại: 3.3/4.0<br>Chứng chỉ: IELTS 7.0 (C1)<!--[cite: 1] --></p>
                     </div>
                 </div>
                 <div class="card">
@@ -217,27 +225,27 @@
                         <ul>
                             <li><strong>Đối tượng:</strong> Học sinh lớp 11 | <strong>Hình thức:</strong> Nhóm - Online<!--[cite: 1] --></li>
                             <li>Đánh giá năng lực đầu vào, tháo gỡ rào cản tâm lý "sợ tiếng Anh" và lồng ghép sở thích cá nhân vào bài giảng.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Nắm vững kiến thức gốc, cải thiện TBM từ 6 (lớp 10) lên 8.5+ (lớp 11).<!--[cite: 1] --></li>
+                            <li><strong>Thành tích:</strong> Giúp học sinh nắm vững kiến thức gốc, cải thiện TBM từ 6 (lớp 10) lên 8.5+ (lớp 11).<!--[cite: 1] --></li>
                         </ul>
                     </div>
 
                     <div class="cv-item">
-                        <h4>Gia sư Tiếng Anh - Ôn thi vào 10 (Chuyên)<!--[cite: 1] --></h4>
+                        <h4>Gia sư Tiếng Anh - Ôn thi vào lớp 10 (Chuyên)<!--[cite: 1] --></h4>
                         <div class="date">01/2025 - 05/2026</div>
                         <ul>
                             <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online (Google meet)<!--[cite: 1] --></li>
-                            <li>Hệ thống kiến thức ngữ pháp cơ bản đến nâng cao. Giai đoạn về đích chữa đề chuyên các tỉnh.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Hỗ trợ thi đỗ nguyện vọng 1 chuyên Anh với số điểm 6.75/10.<!--[cite: 1] --></li>
+                            <li>Hệ thống kiến thức ngữ pháp từ cơ bản đến nâng cao, kèm theo tập trung trau dồi từ vựng. Giai đoạn về đích tích cực chữa đề chuyên các tỉnh.<!--[cite: 1] --></li>
+                            <li><strong>Thành tích:</strong> Hỗ trợ học sinh thi đỗ nguyện vọng 1 chuyên Anh với số điểm chuyên đạt 6.75/10.<!--[cite: 1] --></li>
                         </ul>
                     </div>
 
                     <div class="cv-item">
-                        <h4>Gia sư Tiếng Anh - Ôn thi vào 10<!--[cite: 1] --></h4>
+                        <h4>Gia sư Tiếng Anh - Ôn thi vào lớp 10<!--[cite: 1] --></h4>
                         <div class="date">06/2024 - 06/2026</div>
                         <ul>
                             <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online<!--[cite: 1] --></li>
-                            <li>Thiết kế lộ trình học tập cá nhân hóa tập trung đọc hiểu và ngữ pháp chuyên sâu.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Hỗ trợ thi đỗ THPT công lập nguyện vọng 1 với điểm thi 8/10.<!--[cite: 1] --></li>
+                            <li>Thiết kế lộ trình học tập cá nhân hóa tập trung vào rèn luyện kỹ năng đọc hiểu và ngữ pháp chuyên sâu.<!--[cite: 1] --></li>
+                            <li><strong>Thành tích:</strong> Hỗ trợ học sinh thi đỗ trường THPT công lập nguyện vọng 1 với điểm thi môn Tiếng Anh đạt 8/10.<!--[cite: 1] --></li>
                         </ul>
                     </div>
                 </div>
@@ -264,54 +272,82 @@
                 <div class="stage-marker">1</div>
                 <div class="stage-header">
                     <h3>Giai đoạn 1: Xây dựng nền tảng<!--[cite: 4, 5] --></h3>
-                    <p>Xây dựng khung tư duy và làm quen các dạng bài cơ bản.<!--[cite: 5] --></p>
                 </div>
-                <div class="skill-grid">
-                    <div class="skill-card">
-                        <div class="skill-title">Reading <span>10 Buổi</span><!--[cite: 4, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1</span> Multiple choice<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 2</span> True/False/Not given<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 3</span> Yes/No/Not given<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 4</span> Note/Table/Flow-chart/Diagram completion<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 5</span> Sentence completion<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 6</span> Summary completion<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 7</span> Matching features<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 8</span> Matching information<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 9</span> Matching headings<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 10</span> Short answer<!--[cite: 4] --></li>
-                        </ul>
+                
+                <div class="ielts-layout">
+                    <!-- HÀNG 1: READING & LISTENING -->
+                    <div class="ielts-row-top">
+                        <div class="skill-card">
+                            <div class="skill-title">Reading <span>10 Buổi</span><!--[cite: 4] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Multiple choice<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> True/False/Not given<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Yes/No/Not given<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Note/Table/Flow-chart/Diagram completion<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Sentence completion<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Summary completion<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Matching features<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Matching information<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Matching headings<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Short answer<!--[cite: 4] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Listening <span>6 Buổi</span><!--[cite: 4] --></div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">DẠNG BÀI TRONG SECTION 1 + 2<!--[cite: 4] --></div>
+                            <ul class="session-list" style="margin-bottom: 15px;">
+                                <li><span class="sess-tag">Buổi 1</span> Multiple choice + Note/Form/Table<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Sentence/Flow-chart completion + Matching<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Map/Plan/Diagram labelling + Short answer<!--[cite: 4] --></li>
+                            </ul>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">DẠNG BÀI TRONG SECTION 3 + 4<!--[cite: 4] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 4</span> Multiple choice + Note/Form/Table<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Sentence/Flow-chart completion + Matching<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Map/Plan/Diagram labelling + Short answer<!--[cite: 4] --></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Listening <span>6 Buổi</span><!--[cite: 4, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1+4</span> Multiple choice + Note/Form/Table<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 2+5</span> Sentence/Flow-chart completion + Matching<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 3+6</span> Map/Plan/Diagram labelling + Short answer<!--[cite: 4] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 4, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1</span> Tổng quan về TASK 1<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 2-3</span> Tổng quan Dynamic chart & Static chart<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 4</span> HD viết intro + overview Line graph<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 5</span> HD viết intro + overview Bar chart<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 6</span> HD viết intro + overview Pie chart<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 7</span> HD viết intro + overview Table<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 8</span> HD viết intro + overview Map<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 9</span> HD viết intro + overview Process<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Buổi 10</span> HD viết intro + overview Mixed chart<!--[cite: 4] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 2 & Speaking <span>13 Buổi</span><!--[cite: 4, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">T2: B1-3</span> Tổng quan TASK 2 & PP Thematic progression<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">T2: B4-8</span> HD viết dạng Agree/Disagree, Discussion, Adv/Disadv, Prob/Sol, Two-part<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Spk: B1-4</span> Tổng quan tiêu chí & HD trả lời Part 1, 2, 3<!--[cite: 4] --></li>
-                            <li><span class="sess-tag">Spk: B5</span> Actual test<!--[cite: 4] --></li>
-                        </ul>
+                    
+                    <!-- HÀNG 2: WRITING T1, WRITING T2, SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 4] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Tổng quan về TASK 1<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Tổng quan về Dynamic chart<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Tổng quan về Static chart<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn cách viết intro + overview Line graph<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Hướng dẫn cách viết intro + overview Bar chart<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Hướng dẫn cách viết intro + overview Pie chart<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Hướng dẫn cách viết intro + overview Table<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Hướng dẫn cách viết intro + overview Map<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Hướng dẫn cách viết intro + overview Process<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Hướng dẫn cách viết intro + overview Mixed chart<!--[cite: 4] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 2 <span>8 Buổi</span><!--[cite: 4] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Tổng quan về TASK 2<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 2+3</span> Phương pháp Thematic progression<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn cách viết dạng Agree or Disagree<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Hướng dẫn cách viết dạng Discussion<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Hướng dẫn cách viết dạng Advantages and Disadvantages<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Hướng dẫn cách viết dạng Problems and Solutions<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Hướng dẫn cách viết dạng Two-part questions<!--[cite: 4] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Speaking <span>5 Buổi</span><!--[cite: 4] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Tổng quan + Các tiêu chí chấm điểm<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Hướng dẫn cách trả lời PART 1<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Hướng dẫn cách trả lời PART 2<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn cách trả lời PART 3<!--[cite: 4] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Actual test<!--[cite: 4] --></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -320,42 +356,81 @@
             <div class="timeline-stage">
                 <div class="stage-marker">2</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 2: Lý thuyết chuyên sâu<!--[cite: 3, 5] --></h3>
-                    <p>Chuyên sâu trau dồi từng dạng bài.<!--[cite: 5] --></p>
+                    <h3>Giai đoạn 2: Lý thuyết<!--[cite: 3, 5] --></h3>
                 </div>
-                <div class="skill-grid">
-                    <div class="skill-card">
-                        <div class="skill-title">Reading <span>20 Buổi</span><!--[cite: 3, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">B 1-6</span> Multiple choice; T/F/NG; Y/N/NG<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">B 7-12</span> Note/Table/Flow/Diagram, Sentence & Summary completion<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">B 13-18</span> Matching features, information, headings<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">B 19-20</span> Short answer<!--[cite: 3] --></li>
-                        </ul>
+
+                <div class="ielts-layout">
+                    <!-- HÀNG 1: READING & LISTENING -->
+                    <div class="ielts-row-top">
+                        <div class="skill-card">
+                            <div class="skill-title">Reading <span>20 Buổi</span><!--[cite: 3] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1+2</span> Multiple choice<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 3+4</span> True/False/Not given<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 5+6</span> Yes/No/Not given<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 7+8</span> Note/Table/Flow-chart/Diagram completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 9+10</span> Sentence completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 11+12</span> Summary completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 13+14</span> Matching features<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 15+16</span> Matching information<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 17+18</span> Matching headings<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 19+20</span> Short answer<!--[cite: 3] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Listening <span>14 Buổi</span><!--[cite: 3] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1+2</span> Multiple choice<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 3+4</span> Note/Form completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 5+6</span> Table completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 7+8</span> Sentence/Summary/Flow-chart/Diagram Completion<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 9+10</span> Matching<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 11+12</span> Map/Plan/Diagram labelling<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 13+14</span> Short answer<!--[cite: 3] --></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Listening <span>14 Buổi</span><!--[cite: 3, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">B 1-6</span> Multiple choice; Note/Form/Table completion<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">B 7-10</span> Sentence/Summary/Flow-chart/Diagram Completion; Matching<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">B 11-14</span> Map/Plan/Diagram labelling; Short answer<!--[cite: 3] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 3, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1</span> Ngôn ngữ xu hướng + so sánh<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">Buổi 2-8</span> HD cách viết body: Line, Bar, Pie, Table, Map, Process, Mixed<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">Buổi 9-10</span> Actual test<!--[cite: 3] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 2 & Speaking <span>13 Buổi</span><!--[cite: 3, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">T2: B1-5</span> HD viết chủ đề: Education, Environment, Work, Government, Science<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">T2: B6-10</span> HD viết chủ đề: Health, Entertainment, Society, Economics, Travel<!--[cite: 3] --></li>
-                            <li><span class="sess-tag">Spk: B1-3</span> Luyện tập trau dồi Part 1, Part 2, Part 3<!--[cite: 3] --></li>
-                        </ul>
+
+                    <!-- HÀNG 2: WRITING T1, WRITING T2, SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 3] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Ngôn ngữ xu hướng + so sánh<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Hướng dẫn cách viết body Line graph<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Hướng dẫn cách viết body Bar chart<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn cách viết body Pie chart<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Hướng dẫn cách viết body Table<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Hướng dẫn cách viết body Map<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Hướng dẫn cách viết body Process<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Hướng dẫn cách viết body Mixed chart<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Actual test<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Actual test<!--[cite: 3] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 2 <span>10 Buổi</span><!--[cite: 3] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Hướng dẫn cách viết chủ đề Education<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Hướng dẫn cách viết chủ đề Environment<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Hướng dẫn cách viết chủ đề Work and Careers<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn cách viết chủ đề Government and Criminal justice<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Hướng dẫn cách viết chủ đề Science and Technology<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Hướng dẫn cách viết chủ đề Health<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Hướng dẫn cách viết chủ đề Entertainment<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Hướng dẫn cách viết chủ đề Society and Culture<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Hướng dẫn cách viết chủ đề Economics<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Hướng dẫn cách viết chủ đề Travel and Transportation<!--[cite: 3] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Speaking <span>3 Buổi</span><!--[cite: 3] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Luyện tập trau dồi Part 1<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Luyện tập trau dồi Part 2<!--[cite: 3] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Luyện tập trau dồi Part 3<!--[cite: 3] --></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -365,36 +440,103 @@
                 <div class="stage-marker">3</div>
                 <div class="stage-header">
                     <h3>Giai đoạn 3: Về đích<!--[cite: 2, 5] --></h3>
-                    <p>Thực chiến và luyện đề dưới áp lực thời gian.<!--[cite: 5] --></p>
                 </div>
-                <div class="skill-grid">
-                    <div class="skill-card">
-                        <div class="skill-title">Reading & Listening <span>24 Buổi</span><!--[cite: 2, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1-4</span> Cambridge Practice Test: Cam - Test 1 đến 4<!--[cite: 2] --></li>
-                            <li><span class="sess-tag">Buổi 5-8</span> IELTS Practice Test Plus: Plus - Test 1 đến 4<!--[cite: 2] --></li>
-                            <li><span class="sess-tag">Buổi 9-12</span> Cambridge Practice Test: Cam - Test 1 đến 4<!--[cite: 2] --></li>
-                        </ul>
+
+                <div class="ielts-layout">
+                    <!-- HÀNG 1: READING & LISTENING -->
+                    <div class="ielts-row-top">
+                        <div class="skill-card">
+                            <div class="skill-title">Reading <span>12 Buổi</span><!--[cite: 2] --></div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
+                            <ul class="session-list" style="margin-bottom: 15px;">
+                                <li><span class="sess-tag">Buổi 1</span> Cam - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Cam - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Cam - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Cam - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">IELTS PRACTICE TEST PLUS<!--[cite: 2] --></div>
+                            <ul class="session-list" style="margin-bottom: 15px;">
+                                <li><span class="sess-tag">Buổi 5</span> Plus - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Plus - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Plus - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Plus - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 9</span> Cam - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Cam - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 11</span> Cam - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 12</span> Cam - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Listening <span>12 Buổi</span><!--[cite: 2] --></div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
+                            <ul class="session-list" style="margin-bottom: 15px;">
+                                <li><span class="sess-tag">Buổi 1</span> Cam - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Cam - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Cam - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Cam - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">IELTS PRACTICE TEST PLUS<!--[cite: 2] --></div>
+                            <ul class="session-list" style="margin-bottom: 15px;">
+                                <li><span class="sess-tag">Buổi 5</span> Plus - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Plus - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Plus - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Plus - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 9</span> Cam - Test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Cam - Test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 11</span> Cam - Test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 12</span> Cam - Test 4<!--[cite: 2] --></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 2, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1-7</span> Tổng ôn Line, Bar, Pie, Table, Map, Process, Mixed chart<!--[cite: 2] --></li>
-                            <li><span class="sess-tag">Buổi 8-10</span> Random test 1, 2, 3<!--[cite: 2] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Writing Task 2 <span>10 Buổi</span><!--[cite: 2, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1-5</span> Tổng ôn: Education, Environment, Work, Government, Science<!--[cite: 2] --></li>
-                            <li><span class="sess-tag">Buổi 6-10</span> Tổng ôn: Health, Entertainment, Society, Economics, Travel<!--[cite: 2] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-title">Speaking <span>6 Buổi</span><!--[cite: 2, 5] --></div>
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Buổi 1-5</span> Actual test 1 đến 5<!--[cite: 2] --></li>
-                        </ul>
+
+                    <!-- HÀNG 2: WRITING T1, WRITING T2, SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 2] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Tổng ôn Line graph<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Tổng ôn Bar chart<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Tổng ôn Pie chart<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Tổng ôn Table<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Tổng ôn Map<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Tổng ôn Process<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Tổng ôn Mixed chart<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Random test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Random test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Random test 3<!--[cite: 2] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Writing Task 2 <span>10 Buổi</span><!--[cite: 2] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Tổng ôn chủ đề Education<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Tổng ôn chủ đề Environment<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Tổng ôn chủ đề Work and Careers<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Tổng ôn chủ đề Government and Criminal justice<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Tổng ôn chủ đề Science and Technology<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 6</span> Tổng ôn chủ đề Health<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 7</span> Tổng ôn chủ đề Entertainment<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 8</span> Tổng ôn chủ đề Society and Culture<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 9</span> Tổng ôn chủ đề Economics<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 10</span> Tổng ôn chủ đề Travel and Transportation<!--[cite: 2] --></li>
+                            </ul>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-title">Speaking <span>5 Buổi</span><!--[cite: 2] --></div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> Actual test 1<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 2</span> Actual test 2<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 3</span> Actual test 3<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 4</span> Actual test 4<!--[cite: 2] --></li>
+                                <li><span class="sess-tag">Buổi 5</span> Actual test 5<!--[cite: 2] --></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -407,16 +549,27 @@
             <div class="timeline-stage">
                 <div class="stage-marker">1</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 1: Xây dựng nền móng ngữ pháp<!--[cite: 7] --></h3>
+                    <h3>GIAI ĐOẠN 1: XÂY DỰNG NỀN MÓNG NGỮ PHÁP<!--[cite: 7] --></h3>
                 </div>
                 <div class="skill-grid">
                     <div class="skill-card">
-                        <div class="skill-title">16 Chuyên đề Trọng tâm<!--[cite: 7] --></div>
                         <ul class="session-list">
-                            <li><span class="sess-tag">CĐ 1-4</span> Ngữ âm | Sự hoà hợp C-V | Bị động | Gián tiếp<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">CĐ 5-8</span> Câu điều kiện | Câu hỏi đuôi | Câu ước | So sánh<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">CĐ 9-12</span> Mệnh đề quan hệ | V-ing & To V | Cụm động từ | Mạo từ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">CĐ 13-16</span> Giới từ | Lượng từ | Từ loại | Liên từ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 1</span> NGỮ ÂM<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 2</span> SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 3</span> CÂU BỊ ĐỘNG<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 4</span> CÂU GIÁN TIẾP<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 5</span> CÂU ĐIỀU KIỆN<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 6</span> CÂU HỎI ĐUÔI<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 7</span> CÂU ƯỚC<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 8</span> CÂU SO SÁNH<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 9</span> MỆNH ĐỀ QUAN HỆ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 10</span> DANH ĐỘNG TỪ VÀ ĐỘNG TỪ NGUYÊN MẪU<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 11</span> CỤM ĐỘNG TỪ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 12</span> MẠO TỪ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 13</span> GIỚI TỪ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 14</span> LƯỢNG TỪ<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 15</span> TỪ LOẠI<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Chuyên đề 16</span> LIÊN TỪ<!--[cite: 7] --></li>
                         </ul>
                     </div>
                 </div>
@@ -425,15 +578,15 @@
             <div class="timeline-stage">
                 <div class="stage-marker">2</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 2: Ôn tập theo từng dạng đề<!--[cite: 7] --></h3>
+                    <h3>GIAI ĐOẠN 2: ÔN TẬP THEO TỪNG DẠNG ĐỀ<!--[cite: 7] --></h3>
                 </div>
                 <div class="skill-grid">
                     <div class="skill-card">
                         <ul class="session-list">
-                            <li><span class="sess-tag">Dạng 1</span> Phonology - Ngữ âm<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng 2</span> Grammar & Vocabulary - Ngữ pháp & Từ vựng<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng 3</span> Reading - Đọc hiểu<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng 4</span> Writing - Viết<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Dạng bài 1</span> PHONOLOGY - NGỮ ÂM<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Dạng bài 2</span> GRAMMAR & VOCABULARY - NGỮ PHÁP & TỪ VỰNG<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Dạng bài 3</span> READING - ĐỌC HIỂU<!--[cite: 7] --></li>
+                            <li><span class="sess-tag">Dạng bài 4</span> WRITING - VIẾT<!--[cite: 7] --></li>
                         </ul>
                     </div>
                 </div>
@@ -442,8 +595,7 @@
             <div class="timeline-stage">
                 <div class="stage-marker">3</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 3: Luyện đề<!--[cite: 7] --></h3>
-                    <p>Thực chiến với các bộ đề bám sát cấu trúc thi vào 10.<!--[cite: 7] --></p>
+                    <h3>GIAI ĐOẠN 3: LUYỆN ĐỀ<!--[cite: 7] --></h3>
                 </div>
             </div>
         </div>
@@ -455,16 +607,27 @@
             <div class="timeline-stage">
                 <div class="stage-marker">1</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 1: Xây dựng nền móng ngữ pháp<!--[cite: 6] --></h3>
+                    <h3>GIAI ĐOẠN 1: XÂY DỰNG NỀN MÓNG NGỮ PHÁP<!--[cite: 6] --></h3>
                 </div>
                 <div class="skill-grid">
                     <div class="skill-card">
-                        <div class="skill-title">16 Chuyên đề Trọng tâm<!--[cite: 6] --></div>
                         <ul class="session-list">
-                            <li><span class="sess-tag">CĐ 1-4</span> Sự hoà hợp C-V | Động từ khuyết thiếu | V-ing & To V | Đọc điền thông báo - Tờ rơi<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">CĐ 5-8</span> So sánh | Trật tự tính từ | Mạo từ | Sắp xếp câu<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">CĐ 9-12</span> Từ chỉ số lượng | Liên từ | Bị động | Đọc điền khuyết thông tin<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">CĐ 13-16</span> Câu điều kiện | Mệnh đề quan hệ | Giới từ | Đọc hiểu (8 câu)<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 1</span> SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 2</span> ĐỘNG TỪ KHUYẾT THIẾU<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 3</span> DANH ĐỘNG TỪ VÀ ĐỘNG TỪ NGUYÊN MẪU<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 4</span> ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 5</span> SO SÁNH<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 6</span> TRẬT TỰ CỦA TÍNH TỪ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 7</span> MẠO TỪ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 8</span> SẮP XẾP CÂU<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 9</span> TỪ CHỈ SỐ LƯỢNG<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 10</span> LIÊN TỪ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 11</span> CÂU BỊ ĐỘNG<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 12</span> ĐỌC ĐIỀN KHUYẾT THÔNG TIN<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 13</span> CÂU ĐIỀU KIỆN<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 14</span> MỆNH ĐỀ QUAN HỆ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 15</span> GIỚI TỪ<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Chuyên đề 16</span> ĐỌC HIỂU (8 CÂU)<!--[cite: 6] --></li>
                         </ul>
                     </div>
                 </div>
@@ -473,15 +636,15 @@
             <div class="timeline-stage">
                 <div class="stage-marker">2</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 2: Ôn tập chuyên sâu theo từng dạng đề<!--[cite: 6] --></h3>
+                    <h3>GIAI ĐOẠN 2: ÔN TẬP CHUYÊN SÂU THEO TỪNG DẠNG ĐỀ<!--[cite: 6] --></h3>
                 </div>
                 <div class="skill-grid">
                     <div class="skill-card">
                         <ul class="session-list">
-                            <li><span class="sess-tag">Dạng 1</span> Đọc điền thông báo - Tờ rơi<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng 3</span> Sắp xếp câu (Chú ý: Dạng 2 trong file gốc được đánh số nhảy cóc)<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng 4</span> Đọc điền khuyết thông tin<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng 5</span> Đọc hiểu (1 bài 8 câu + 1 bài 10 câu)<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Dạng bài 1</span> ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Dạng bài 3</span> SẮP XẾP CÂU<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Dạng bài 4</span> ĐỌC ĐIỀN KHUYẾT THÔNG TIN<!--[cite: 6] --></li>
+                            <li><span class="sess-tag">Dạng bài 5</span> ĐỌC HIỂU (1 BÀI 8 CÂU + 1 BÀI 10 CÂU)<!--[cite: 6] --></li>
                         </ul>
                     </div>
                 </div>
@@ -490,8 +653,7 @@
             <div class="timeline-stage">
                 <div class="stage-marker">3</div>
                 <div class="stage-header">
-                    <h3>Giai đoạn 3: Luyện đề<!--[cite: 6] --></h3>
-                    <p>Thực chiến với các bộ đề bám sát cấu trúc thi THPT Quốc gia.<!--[cite: 6] --></p>
+                    <h3>GIAI ĐOẠN 3: LUYỆN ĐỀ<!--[cite: 6] --></h3>
                 </div>
             </div>
         </div>
