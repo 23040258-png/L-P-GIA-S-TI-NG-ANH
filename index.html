@@ -4,194 +4,615 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vũ Hồng Anh - Gia Sư Tiếng Anh</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* === THEME VARIABLES === */
         :root {
-            --bg-body: #f4f7f6;
-            --bg-card: #ffffff;
+            --bg-body: #f0f4f8;
+            --bg-card: rgba(255, 255, 255, 0.88);
+            --bg-inner: #f8fafc;
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
+            --secondary: #4f46e5;
+            --accent: #0ea5e9;
             --light-blue: #eff6ff;
-            --text-main: #1e293b;
+            --text-main: #0f172a;
             --text-muted: #475569;
-            --border: #e2e8f0;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 10px 25px rgba(37, 99, 235, 0.15);
-            --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border: rgba(226, 232, 240, 0.9);
+            --shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06);
+            --shadow-hover: 0 20px 40px -10px rgba(37, 99, 235, 0.18);
+            --radius: 20px;
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Skill Accent Colors */
+            --c-reading: #2563eb;
+            --c-listening: #7c3aed;
+            --c-task1: #059669;
+            --c-task2: #d97706;
+            --c-speaking: #e11d48;
         }
 
         [data-theme="dark"] {
-            --bg-body: #0f172a;
-            --bg-card: #1e293b;
+            --bg-body: #090d16;
+            --bg-card: rgba(30, 41, 59, 0.82);
+            --bg-inner: rgba(15, 23, 42, 0.65);
             --primary: #3b82f6;
             --primary-hover: #60a5fa;
-            --light-blue: #0f172a;
-            --text-main: #f1f5f9;
+            --secondary: #818cf8;
+            --accent: #38bdf8;
+            --light-blue: rgba(59, 130, 246, 0.12);
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 10px 25px rgba(59, 130, 246, 0.2);
+            --border: rgba(51, 65, 85, 0.8);
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 20px 40px -10px rgba(59, 130, 246, 0.25);
+
+            --c-reading: #60a5fa;
+            --c-listening: #a78bfa;
+            --c-task1: #34d399;
+            --c-task2: #fbbf24;
+            --c-speaking: #fb7185;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; transition: var(--transition); overflow-x: hidden; }
         
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* === ANIMATED AURORA BACKGROUND BLOBS === */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            animation: floatBlob 18s infinite alternate ease-in-out;
+        }
+        [data-theme="dark"] .blob { opacity: 0.22; }
+        .blob-1 { width: 450px; height: 450px; background: #60a5fa; top: -10%; left: -10%; animation-delay: 0s; }
+        .blob-2 { width: 400px; height: 400px; background: #a78bfa; top: 40%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 350px; height: 350px; background: #38bdf8; bottom: -10%; left: 20%; animation-delay: -10s; }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.1); }
+            100% { transform: translate(-20px, 40px) scale(0.95); }
+        }
+
         /* === PROGRESS BAR === */
-        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--primary); width: 0%; z-index: 9999; transition: width 0.1s ease; }
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            width: 0%; z-index: 9999; transition: width 0.1s ease;
+        }
 
         /* === THEME TOGGLE === */
-        .theme-switch { position: absolute; top: 20px; right: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); font-size: 1.2rem; box-shadow: var(--shadow); transition: var(--transition); z-index: 100; }
-        .theme-switch:hover { transform: scale(1.1); color: var(--primary); }
+        .theme-switch {
+            position: fixed; top: 20px; right: 20px;
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 50%;
+            width: 46px; height: 46px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-main); font-size: 1.2rem;
+            box-shadow: var(--shadow); transition: var(--transition); z-index: 900;
+        }
+        .theme-switch:hover { transform: rotate(15deg) scale(1.1); color: var(--primary); border-color: var(--primary); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; position: relative; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 35px 20px 60px; position: relative; }
 
-        /* === PROFILE HEADER === */
-        .profile-header { background: var(--bg-card); border-radius: var(--radius); padding: 40px 20px; text-align: center; box-shadow: var(--shadow); margin-bottom: 30px; position: relative; overflow: hidden; border: 1px solid var(--border); }
-        .profile-header h1 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
-        .profile-header .subtitle { color: var(--primary); font-weight: 600; font-size: 1.2rem; margin-bottom: 20px; }
-        
-        /* Contact Copy */
-        .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .contact-badge { background: var(--light-blue); color: var(--text-muted); font-size: 0.95rem; padding: 8px 16px; border-radius: 30px; border: 1px solid var(--border); cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
-        .contact-badge:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+        /* === PROFILE HEADER (HERO) === */
+        .profile-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            padding: 45px 25px 35px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .profile-header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(16, 185, 129, 0.12); color: #059669;
+            padding: 6px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
+            margin-bottom: 15px; border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        [data-theme="dark"] .status-pill { color: #34d399; }
+        .status-dot {
+            width: 8px; height: 8px; background: #10b981; border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulseGreen 2s infinite;
+        }
+        @keyframes pulseGreen {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .profile-header h1 {
+            font-size: 2.8rem; font-weight: 900; letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .typing-wrapper {
+            font-size: 1.2rem; font-weight: 600; color: var(--primary);
+            min-height: 32px; margin-bottom: 22px;
+            display: flex; align-items: center; justify-content: center; gap: 4px;
+        }
+        .cursor-blink {
+            display: inline-block; width: 2px; height: 1.2rem;
+            background-color: var(--primary); animation: blink 0.8s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Contact Copy Badges */
+        .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .contact-badge {
+            background: var(--bg-inner); color: var(--text-muted);
+            font-size: 0.92rem; font-weight: 500;
+            padding: 9px 18px; border-radius: 30px;
+            border: 1px solid var(--border); cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; gap: 8px;
+        }
+        .contact-badge i { color: var(--primary); transition: var(--transition); }
+        .contact-badge.highlight-badge {
+            background: var(--light-blue); color: var(--primary);
+            border-color: rgba(37, 99, 235, 0.3); font-weight: 700; cursor: default;
+        }
+        .contact-badge:not(.highlight-badge):hover {
+            background: var(--primary); color: white; border-color: var(--primary);
+            transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+        .contact-badge:not(.highlight-badge):hover i { color: white; }
 
         /* === INFINITE MARQUEE === */
-        .marquee-wrapper { background: var(--primary); color: white; padding: 10px 0; margin-bottom: 30px; overflow: hidden; display: flex; border-radius: 8px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(37,99,235,0.3);}
-        .marquee-content { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
-        .marquee-content span { margin: 0 30px; }
+        .marquee-wrapper {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white; padding: 12px 0; margin-bottom: 28px;
+            overflow: hidden; display: flex; border-radius: 14px;
+            font-weight: 600; font-size: 0.98rem;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+        }
+        .marquee-content { display: flex; white-space: nowrap; animation: marquee 28s linear infinite; }
+        .marquee-wrapper:hover .marquee-content { animation-play-state: paused; }
+        .marquee-content span { margin: 0 35px; display: inline-flex; align-items: center; gap: 8px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* === STICKY TABS === */
-        .tabs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; position: sticky; top: 10px; z-index: 100; background: rgba(var(--bg-body), 0.9); backdrop-filter: blur(10px); padding: 10px; border-radius: var(--radius); }
-        .tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); flex: 1 1 auto; text-align: center; min-width: 130px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        /* === STICKY TABS DOCK === */
+        .tabs-nav {
+            display: flex; justify-content: center; gap: 10px;
+            margin-bottom: 30px; flex-wrap: wrap;
+            position: sticky; top: 12px; z-index: 100;
+            background: var(--bg-card); backdrop-filter: blur(16px);
+            padding: 10px; border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        .tab-btn {
+            background: transparent; border: 1px solid transparent;
+            color: var(--text-muted); padding: 12px 20px;
+            border-radius: 12px; font-size: 0.96rem; font-weight: 700;
+            cursor: pointer; transition: var(--transition);
+            flex: 1 1 auto; text-align: center; min-width: 135px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: inherit;
+        }
+        .tab-btn:hover { color: var(--primary); background: var(--light-blue); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+        }
+        .tab-badge {
+            font-size: 0.72rem; padding: 2px 7px; border-radius: 20px;
+            background: rgba(37, 99, 235, 0.12); color: var(--primary); font-weight: 800;
+        }
+        .tab-btn.active .tab-badge { background: rgba(255, 255, 255, 0.25); color: white; }
 
-        /* === TAB CONTENT & SCROLL REVEAL === */
-        .tab-content { display: none; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; }
-        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.5, 0, 0, 1); }
+        /* === TAB CONTENT & ANIMATIONS === */
+        .tab-content { display: none; opacity: 0; transform: translateY(15px); text-align: left; }
+        .tab-content.active {
+            display: block;
+            animation: tabAppear 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes tabAppear {
+            from { opacity: 0; transform: translateY(18px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .reveal { opacity: 0; transform: translateY(25px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* === GENERAL CARDS === */
-        .card { background: var(--bg-card); border-radius: var(--radius); padding: 30px; margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); text-align: left; }
+        .card {
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border-radius: var(--radius); padding: 30px; margin-bottom: 24px;
+            box-shadow: var(--shadow); border: 1px solid var(--border);
+            transition: var(--transition); text-align: left;
+        }
         .card:hover { box-shadow: var(--shadow-hover); }
-        .section-title { font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--light-blue); display: flex; align-items: center; gap: 10px; }
+        .section-title {
+            font-size: 1.45rem; font-weight: 800; color: var(--text-main);
+            margin-bottom: 22px; padding-bottom: 14px;
+            border-bottom: 2px solid var(--light-blue);
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+        }
+        .section-title-left { display: flex; align-items: center; gap: 10px; }
+        .section-title-left i { color: var(--primary); }
 
-        /* === SMART EXPAND ACCORDION === */
-        details { background: var(--bg-body); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: var(--transition); text-align: left; }
-        details[open] { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
-        summary { padding: 20px; font-size: 1.2rem; font-weight: 700; color: var(--text-main); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '\f107'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: transform 0.3s; }
-        details[open] summary::after { transform: rotate(180deg); }
-        .details-content { padding: 25px 20px; background: var(--bg-card); border-top: 1px solid var(--border); animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* === ROADMAP CONTROLS (SEARCH & EXPAND/COLLAPSE) === */
+        .roadmap-toolbar {
+            display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;
+            background: var(--bg-card); padding: 16px 20px; border-radius: 16px;
+            border: 1px solid var(--border); margin-bottom: 22px; box-shadow: var(--shadow);
+        }
+        .search-box {
+            position: relative; flex: 1 1 280px;
+        }
+        .search-box i {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .search-box input {
+            width: 100%; padding: 11px 16px 11px 42px;
+            border-radius: 10px; border: 1px solid var(--border);
+            background: var(--bg-inner); color: var(--text-main);
+            font-size: 0.95rem; font-family: inherit; outline: none; transition: var(--transition);
+        }
+        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tool-btn {
+            background: var(--bg-inner); border: 1px solid var(--border);
+            color: var(--text-main); padding: 9px 15px; border-radius: 10px;
+            font-size: 0.88rem; font-weight: 600; cursor: pointer;
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 6px;
+            font-family: inherit;
+        }
+        .tool-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* === TIMELINE & SKILL CARDS === */
-        .timeline { position: relative; padding-left: 20px; text-align: left; }
-        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--primary) 0%, var(--light-blue) 100%); border-radius: 2px; }
-        .ielts-layout { display: flex; flex-direction: column; gap: 20px; }
-        .ielts-row-top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .ielts-row-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .skill-card { background: var(--bg-body); border-radius: 12px; padding: 25px; border: 1px solid var(--border); transition: var(--transition); position: relative; z-index: 1; text-align: left; }
-        .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary); background: var(--bg-card); }
-        .skill-title { font-weight: 700; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 1.1rem; }
-        .skill-title span { background: var(--light-blue); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+        /* === OVERVIEW TABLE (NEW IELTS 155 BUỔI STRUCTURE) === */
+        .overview-meta {
+            display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+        }
+        .meta-chip {
+            background: var(--light-blue); color: var(--primary);
+            padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+        .table-responsive {
+            width: 100%; overflow-x: auto; border-radius: 14px;
+            border: 1px solid var(--border); box-shadow: inset 0 0 10px rgba(0,0,0,0.01);
+        }
+        .summary-table {
+            width: 100%; border-collapse: collapse; font-size: 0.92rem;
+            min-width: 720px; background: var(--bg-card);
+        }
+        .summary-table th, .summary-table td {
+            padding: 12px 14px; border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border); text-align: center;
+        }
+        .summary-table th:last-child, .summary-table td:last-child { border-right: none; }
+        .summary-table thead th {
+            background: linear-gradient(180deg, var(--light-blue), rgba(37, 99, 235, 0.04));
+            color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        }
+        .stage-group-row td {
+            background: var(--bg-inner); text-align: left !important;
+            font-weight: 800; font-size: 1rem; color: var(--primary);
+            padding: 12px 18px; border-top: 2px solid var(--border);
+        }
+        .row-label {
+            text-align: left !important; font-weight: 700; color: var(--text-main);
+            background: rgba(148, 163, 184, 0.05); width: 130px;
+        }
+        .target-pill {
+            display: inline-block; background: rgba(16, 185, 129, 0.12);
+            color: #059669; font-weight: 800; padding: 3px 10px;
+            border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        [data-theme="dark"] .target-pill { color: #34d399; }
+
+        /* === SMART EXPAND ACCORDION (STAGES) === */
+        .timeline { position: relative; padding-left: 24px; text-align: left; }
+        .timeline::before {
+            content: ''; position: absolute; left: 4px; top: 10px; bottom: 10px; width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--accent));
+            border-radius: 3px;
+        }
+
+        details.stage-details {
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 18px;
+            margin-bottom: 22px; overflow: hidden; transition: var(--transition);
+            position: relative; box-shadow: var(--shadow);
+        }
+        details.stage-details[open] {
+            border-color: var(--primary);
+            box-shadow: 0 12px 35px -10px rgba(37, 99, 235, 0.18);
+        }
+        summary.stage-summary {
+            padding: 20px 24px; font-size: 1.18rem; font-weight: 800;
+            color: var(--text-main); cursor: pointer; list-style: none;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-card); transition: var(--transition); gap: 12px;
+        }
+        summary.stage-summary:hover { background: var(--light-blue); }
+        summary.stage-summary::-webkit-details-marker { display: none; }
+        .stage-summary-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .stage-num-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; font-size: 0.82rem; font-weight: 800;
+            padding: 5px 12px; border-radius: 8px; text-transform: uppercase;
+        }
+        .stage-meta-tag {
+            font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
+            background: var(--bg-inner); padding: 4px 12px; border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        summary.stage-summary::after {
+            content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            color: var(--primary); font-size: 1rem;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--light-blue); display: flex; align-items: center; justify-content: center;
+            transition: transform 0.35s ease; flex-shrink: 0;
+        }
+        details.stage-details[open] summary.stage-summary::after { transform: rotate(180deg); background: var(--primary); color: white; }
+
+        .details-content {
+            padding: 24px; background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            animation: slideDown 0.35s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === SKILL CARDS (2 ROWS LAYOUT FOR IELTS) === */
+        .ielts-layout { display: flex; flex-direction: column; gap: 22px; }
+        .ielts-row-top { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+        .ielts-row-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
+        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+
+        .skill-card {
+            background: var(--bg-inner); border-radius: 16px;
+            padding: 22px; border: 1px solid var(--border);
+            transition: var(--transition); position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .skill-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--skill-color, var(--primary));
+        }
+        .skill-card.sk-reading { --skill-color: var(--c-reading); }
+        .skill-card.sk-listening { --skill-color: var(--c-listening); }
+        .skill-card.sk-task1 { --skill-color: var(--c-task1); }
+        .skill-card.sk-task2 { --skill-color: var(--c-task2); }
+        .skill-card.sk-speaking { --skill-color: var(--c-speaking); }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--skill-color, var(--primary));
+            background: var(--bg-card);
+        }
+
+        .skill-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 12px;
+            border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 8px;
+        }
+        .skill-title {
+            font-weight: 800; color: var(--text-main); font-size: 1.08rem;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .skill-title i { color: var(--skill-color, var(--primary)); }
+        .skill-badges { display: flex; gap: 6px; align-items: center; }
+        .count-badge {
+            background: var(--light-blue); color: var(--skill-color, var(--primary));
+            padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 800;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+        }
+        .goal-badge {
+            background: rgba(16, 185, 129, 0.12); color: #059669;
+            padding: 3px 9px; border-radius: 20px; font-size: 0.76rem; font-weight: 800;
+        }
+        [data-theme="dark"] .goal-badge { color: #34d399; }
+
+        .sub-section-label {
+            font-size: 0.82rem; font-weight: 800; color: var(--skill-color, var(--primary));
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin: 12px 0 8px; padding: 5px 10px;
+            background: rgba(37, 99, 235, 0.06); border-radius: 6px;
+            border-left: 3px solid var(--skill-color, var(--primary));
+        }
+        .sub-section-label:first-of-type { margin-top: 0; }
 
         /* Session Lists */
         .session-list { list-style: none; text-align: left; }
-        .session-list li { display: flex; gap: 12px; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-muted); border-bottom: 1px dashed var(--border); padding-bottom: 8px; align-items: flex-start; transition: all 0.2s; }
-        .session-list li:hover { color: var(--text-main); transform: translateX(5px); }
-        .session-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .sess-tag { font-weight: 600; color: var(--primary); min-width: 65px; flex-shrink: 0; font-size: 0.8rem; background: var(--bg-card); padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); text-align: center; height: fit-content; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-
-        /* === TABLES === */
-        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 20px; border-radius: 12px; border: 1px solid var(--border); }
-        .summary-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; background: var(--bg-card); }
-        .summary-table th, .summary-table td { padding: 15px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); text-align: center; }
-        .summary-table th:last-child, .summary-table td:last-child { border-right: none; }
-        .summary-table th { background: var(--light-blue); color: var(--primary); font-weight: 700; }
-        .summary-table tr:hover td { background: var(--bg-body); }
-        .summary-table td:first-child { text-align: left; font-weight: 600; color: var(--text-main); }
+        .session-list li {
+            display: flex; gap: 10px; margin-bottom: 7px; font-size: 0.92rem;
+            color: var(--text-muted); border-bottom: 1px dashed var(--border);
+            padding: 6px 6px 8px; align-items: flex-start;
+            transition: all 0.2s ease; border-radius: 6px;
+        }
+        .session-list li:hover {
+            color: var(--text-main); background: rgba(37, 99, 235, 0.04);
+            transform: translateX(4px);
+        }
+        .session-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 2px; }
+        .sess-tag {
+            font-weight: 700; color: var(--skill-color, var(--primary));
+            min-width: 78px; flex-shrink: 0; font-size: 0.78rem;
+            background: var(--bg-card); padding: 3px 8px; border-radius: 6px;
+            border: 1px solid var(--border); text-align: center; height: fit-content;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .session-list li.highlight-match {
+            background: rgba(250, 204, 21, 0.2);
+            border: 1px solid #f59e0b; color: var(--text-main); font-weight: 600;
+        }
 
         /* === CV LAYOUT === */
         .cv-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 25px; text-align: left; }
-        .cv-item { margin-bottom: 25px; }
-        .cv-item h4 { color: var(--text-main); font-size: 1.15rem; font-weight: 700;}
-        .cv-item .date { display: inline-block; background: var(--light-blue); color: var(--primary); padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; margin: 8px 0 12px; font-weight: 600;}
-        .cv-item ul { padding-left: 20px; color: var(--text-muted); font-size: 1rem;}
+        .cv-item {
+            margin-bottom: 24px; padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border);
+        }
+        .cv-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .cv-item h4 { color: var(--text-main); font-size: 1.15rem; font-weight: 800; }
+        .cv-item .date {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--light-blue); color: var(--primary);
+            padding: 4px 12px; border-radius: 6px; font-size: 0.84rem;
+            margin: 8px 0 12px; font-weight: 700;
+        }
+        .cv-item ul { padding-left: 20px; color: var(--text-muted); font-size: 0.98rem; }
         .cv-item ul li { margin-bottom: 8px; }
-        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;}
-        .tag-pill { background: var(--bg-body); border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; color: var(--text-muted); font-weight: 500; transition: var(--transition);}
-        .tag-pill:hover { background: var(--primary); color: white; border-color: var(--primary);}
+        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+        .tag-pill {
+            background: var(--bg-inner); border: 1px solid var(--border);
+            padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
+            color: var(--text-muted); font-weight: 600; transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .tag-pill:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
 
         /* === TUITION CALCULATOR === */
-        .calc-group { margin-bottom: 25px; }
-        .calc-label { font-weight: 700; font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px; display: block; }
+        .calc-group { margin-bottom: 26px; }
+        .calc-label { font-weight: 800; font-size: 1.05rem; color: var(--text-main); margin-bottom: 12px; display: block; }
         .calc-options { display: flex; flex-wrap: wrap; gap: 12px; }
-        .calc-option { position: relative; }
+        .calc-option { position: relative; flex: 1 1 200px; }
         .calc-option input { display: none; }
-        .calc-option label { padding: 12px 20px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text-muted); transition: var(--transition); background: var(--bg-body); }
-        .calc-option input:checked + label { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 12px rgba(37,99,235,0.2); transform: translateY(-2px); }
-        .calc-result-box { margin-top: 30px; padding: 30px; background: var(--light-blue); border-radius: 12px; text-align: center; border: 2px dashed var(--primary); transition: var(--transition); }
-        .calc-result-title { font-size: 1.1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; }
-        .calc-result-value { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
-        .calc-result-detail { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
-        .contact-action-btn { display: inline-block; background: var(--primary); color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: var(--transition); box-shadow: 0 4px 15px rgba(37,99,235,0.3); border: none; cursor: pointer; }
-        .contact-action-btn:hover { background: var(--primary-hover); transform: translateY(-3px); }
+        .calc-option label {
+            padding: 14px 18px; border: 1px solid var(--border); border-radius: 12px;
+            cursor: pointer; display: flex; align-items: center; gap: 10px;
+            font-weight: 600; color: var(--text-muted); transition: var(--transition);
+            background: var(--bg-inner); height: 100%;
+        }
+        .calc-option label:hover { border-color: var(--primary); }
+        .calc-option input:checked + label {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; border-color: transparent;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+        .calc-option input:disabled + label {
+            opacity: 0.45; cursor: not-allowed; filter: grayscale(1);
+        }
+        .calc-result-box {
+            margin-top: 30px; padding: 32px 24px;
+            background: linear-gradient(135deg, var(--light-blue), rgba(79, 70, 229, 0.06));
+            border-radius: 18px; text-align: center;
+            border: 2px dashed var(--primary); transition: var(--transition);
+        }
+        .calc-result-title { font-size: 0.95rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+        .calc-result-value { font-size: 2.8rem; font-weight: 900; color: var(--primary); margin-bottom: 6px; }
+        .calc-result-detail { font-size: 0.98rem; color: var(--text-muted); margin-bottom: 22px; font-weight: 500; }
+        .contact-action-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 14px 32px; border-radius: 30px;
+            text-decoration: none; font-weight: 700; font-size: 1.05rem;
+            transition: var(--transition); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+        }
+        .contact-action-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45); }
 
         /* === FLOATING CONTACT & TOAST === */
-        #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 16px; position: fixed; z-index: 10000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
-        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
-        
-        .floating-contact { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 99; }
-        .float-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: var(--transition); }
-        .float-btn.zalo { background-color: #0068ff; }
-        .float-btn.phone { background-color: #059669; }
-        .float-btn:hover { transform: translateY(-5px) scale(1.1); }
+        #toast {
+            visibility: hidden; min-width: 260px; background-color: #0f172a; color: #fff;
+            text-align: center; border-radius: 12px; padding: 14px 20px;
+            position: fixed; z-index: 10000; left: 50%; bottom: 30px;
+            transform: translateX(-50%); font-size: 0.95rem; font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25); opacity: 0; transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 45px; }
 
-        #btn-back-to-top { position: fixed; bottom: 30px; right: 30px; display: none; width: 45px; height: 45px; border-radius: 50%; background: var(--primary); color: white; border: none; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 15px rgba(37,99,235,0.4); z-index: 99; transition: var(--transition); }
-        #btn-back-to-top:hover { transform: translateY(-5px); background: var(--primary-hover); }
+        .floating-contact { position: fixed; bottom: 28px; left: 28px; display: flex; flex-direction: column; gap: 12px; z-index: 99; }
+        .float-btn {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.35rem; text-decoration: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2); transition: var(--transition);
+        }
+        .float-btn.zalo { background: linear-gradient(135deg, #0068ff, #00a2ff); }
+        .float-btn.phone { background: linear-gradient(135deg, #059669, #10b981); }
+        .float-btn:hover { transform: translateY(-4px) scale(1.1); }
 
-        /* === CONFETTI CANVAS === */
+        #btn-back-to-top {
+            position: fixed; bottom: 28px; right: 28px; display: none;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--primary); color: white; border: none;
+            font-size: 1.15rem; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); z-index: 99; transition: var(--transition);
+        }
+        #btn-back-to-top:hover { transform: translateY(-4px); background: var(--primary-hover); }
+
         #confetti-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; }
 
         /* === MOBILE RESPONSIVE === */
-        @media (max-width: 900px) {
+        @media (max-width: 960px) {
             .ielts-row-top, .ielts-row-bottom { grid-template-columns: 1fr; }
             .cv-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
-            .container { padding: 20px 15px; }
-            .profile-header { padding: 30px 15px; }
-            .profile-header h1 { font-size: 2rem; }
-            .tabs-nav { top: 0; border-radius: 0; padding: 10px 0; gap: 5px; }
-            .tab-btn { padding: 10px; font-size: 0.9rem; min-width: calc(33% - 5px); }
-            .card { padding: 20px; }
-            summary { padding: 15px; font-size: 1.1rem; }
-            .details-content { padding: 20px 15px; }
-            .calc-option label { padding: 10px 15px; font-size: 0.9rem;}
-            .calc-result-value { font-size: 2rem; }
-            .floating-contact { bottom: 20px; left: 20px; }
-            #btn-back-to-top { bottom: 20px; right: 20px; }
+            .container { padding: 20px 14px 50px; }
+            .profile-header { padding: 32px 16px 26px; }
+            .profile-header h1 { font-size: 2.1rem; }
+            .typing-wrapper { font-size: 1.05rem; }
+            .tabs-nav { top: 6px; padding: 8px; gap: 6px; border-radius: 14px; }
+            .tab-btn { padding: 10px 12px; font-size: 0.88rem; min-width: calc(50% - 6px); }
+            .card { padding: 20px 16px; }
+            summary.stage-summary { padding: 16px; font-size: 1.05rem; }
+            .details-content { padding: 16px 14px; }
+            .timeline { padding-left: 16px; }
+            .calc-result-value { font-size: 2.1rem; }
+            .floating-contact { bottom: 18px; left: 16px; }
+            #btn-back-to-top { bottom: 18px; right: 16px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Progress Bar -->
+<!-- Animated Aurora Blobs -->
+<div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- Reading Progress Bar -->
 <div id="progress-bar"></div>
 
 <!-- Confetti Canvas -->
 <canvas id="confetti-canvas"></canvas>
 
 <!-- Theme Toggle -->
-<div class="theme-switch" onclick="toggleTheme()" title="Sáng / Tối">
+<div class="theme-switch" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối">
     <i class="fas fa-moon" id="theme-icon"></i>
 </div>
 
@@ -204,111 +625,143 @@
 <div class="container">
     <!-- PROFILE HEADER -->
     <div class="profile-header reveal">
+        <div class="status-pill">
+            <span class="status-dot"></span> Đang mở nhận học viên & lớp mới
+        </div>
         <h1>Vũ Hồng Anh</h1>
-        <div class="subtitle">Gia Sư Tiếng Anh<!--[cite: 1] --></div>
+        <div class="typing-wrapper">
+            <span id="typing-text">Gia Sư Tiếng Anh</span><span class="cursor-blink"></span>
+        </div>
         
         <div class="contact-info">
-            <span class="contact-badge"><i class="fas fa-graduation-cap"></i> IELTS 7.5 (WRITING 7.5)<!--[cite: 1] --></span>
-            <span class="contact-badge" onclick="copyText('963 Lê Đức Thọ, Hà Nội')"><i class="fas fa-map-marker-alt"></i> 963 Lê Đức Thọ, HN<!--[cite: 1] --></span>
-            <span class="contact-badge" onclick="copyText('0868448794')"><i class="fas fa-phone-alt"></i> 0868448794<!--[cite: 1] --></span>
-            <span class="contact-badge" onclick="copyText('pinkanh911@gmail.com')"><i class="fas fa-envelope"></i> pinkanh911@gmail.com<!--[cite: 1] --></span>
+            <span class="contact-badge highlight-badge"><i class="fas fa-award"></i> IELTS 7.5 (WRITING 7.5)</span>
+            <span class="contact-badge" onclick="copyText('963 Lê Đức Thọ, Hà Nội')"><i class="fas fa-map-marker-alt"></i> 963 Lê Đức Thọ, HN</span>
+            <span class="contact-badge" onclick="copyText('0868448794')"><i class="fas fa-phone-alt"></i> 0868448794</span>
+            <span class="contact-badge" onclick="copyText('pinkanh911@gmail.com')"><i class="fas fa-envelope"></i> pinkanh911@gmail.com</span>
         </div>
     </div>
 
     <!-- INFINITE MARQUEE -->
     <div class="marquee-wrapper reveal">
         <div class="marquee-content">
-            <span>🎯 Phương pháp dạy tư duy, không học vẹt</span>
-            <span>🏆 Học viên đạt 7.0 IELTS Overall</span>
+            <span>🎯 Phương pháp dạy bản chất tư duy, không học vẹt</span>
+            <span>🏆 Chứng chỉ IELTS 7.5 (Writing 7.5) - Sinh viên ULIS</span>
+            <span>🌟 Học viên đạt 6.0 - 7.0 IELTS Overall</span>
             <span>📈 Điểm TBM Tiếng Anh bứt phá từ 6.0 lên 8.5+</span>
-            <span>🎓 Hỗ trợ đỗ NV1 Chuyên Anh 6.75/10</span>
-            <span>🎯 Phương pháp dạy tư duy, không học vẹt</span>
-            <span>🏆 Học viên đạt 7.0 IELTS Overall</span>
+            <span>🎓 Hỗ trợ đỗ NV1 Chuyên Anh (6.75/10) & THPT Công lập (8/10)</span>
+            <span>🎯 Phương pháp dạy bản chất tư duy, không học vẹt</span>
+            <span>🏆 Chứng chỉ IELTS 7.5 (Writing 7.5) - Sinh viên ULIS</span>
+            <span>🌟 Học viên đạt 6.0 - 7.0 IELTS Overall</span>
             <span>📈 Điểm TBM Tiếng Anh bứt phá từ 6.0 lên 8.5+</span>
-            <span>🎓 Hỗ trợ đỗ NV1 Chuyên Anh 6.75/10</span>
+            <span>🎓 Hỗ trợ đỗ NV1 Chuyên Anh (6.75/10) & THPT Công lập (8/10)</span>
         </div>
     </div>
 
     <!-- TABS NAV -->
     <div class="tabs-nav reveal">
-        <button class="tab-btn active" onclick="openTab('cv')"><i class="fas fa-id-card"></i> Hồ Sơ</button>
-        <button class="tab-btn" onclick="openTab('ielts')"><i class="fas fa-plane-departure"></i> Lộ trình IELTS</button>
-        <button class="tab-btn" onclick="openTab('vao10')"><i class="fas fa-school"></i> Vào 10</button>
-        <button class="tab-btn" onclick="openTab('thpt')"><i class="fas fa-university"></i> Ôn THPT</button>
-        <button class="tab-btn" style="background: var(--light-blue); color: var(--primary);" onclick="openTab('tuition')"><i class="fas fa-calculator"></i> Báo Giá</button>
+        <button class="tab-btn active" onclick="openTab('cv', this)">
+            <i class="fas fa-id-card"></i> Hồ Sơ (CV)
+        </button>
+        <button class="tab-btn" onclick="openTab('ielts', this)">
+            <i class="fas fa-plane-departure"></i> Lộ trình IELTS <span class="tab-badge">155 Buổi</span>
+        </button>
+        <button class="tab-btn" onclick="openTab('vao10', this)">
+            <i class="fas fa-school"></i> Ôn Vào 10
+        </button>
+        <button class="tab-btn" onclick="openTab('thpt', this)">
+            <i class="fas fa-university"></i> Ôn THPT QG
+        </button>
+        <button class="tab-btn" onclick="openTab('tuition', this)">
+            <i class="fas fa-calculator"></i> Báo Giá
+        </button>
     </div>
 
-    <!-- TAB 1: CV -->
+    <!-- ==================== TAB 1: CV ==================== -->
     <div id="cv" class="tab-content active">
         <div class="cv-grid">
             <div class="left-col">
                 <div class="card reveal">
-                    <h2 class="section-title"><i class="fas fa-user-graduate"></i> Học vấn</h2>
+                    <h2 class="section-title">
+                        <span class="section-title-left"><i class="fas fa-user-graduate"></i> Học vấn</span>
+                    </h2>
                     <div class="cv-item">
-                        <h4>Chuyên ngành Ngôn ngữ Anh<!--[cite: 1] --></h4>
-                        <div class="date">2023 - Nay</div>
-                        <p style="color: var(--text-muted);">Trường Đại học Ngoại ngữ - ULIS<br>GPA hiện tại: 3.33/4.0<br>Chứng chỉ: IELTS 7.5 (WRITING 7.5)<!--[cite: 1] --></p>
+                        <h4>Chuyên ngành Ngôn ngữ Anh</h4>
+                        <div class="date"><i class="far fa-calendar-alt"></i> 2023 - Nay</div>
+                        <p style="color: var(--text-muted);">
+                            <strong>Trường Đại học Ngoại ngữ - ULIS</strong><br>
+                            • GPA hiện tại: <strong>3.33/4.0</strong><br>
+                            • Chứng chỉ: <strong>IELTS 7.5 (WRITING 7.5)</strong>
+                        </p>
                     </div>
                 </div>
                 <div class="card reveal">
-                    <h2 class="section-title"><i class="fas fa-star"></i> Kỹ năng</h2>
+                    <h2 class="section-title">
+                        <span class="section-title-left"><i class="fas fa-star"></i> Kỹ năng chuyên môn</span>
+                    </h2>
                     <div class="tags-container">
-                        <span class="tag-pill">Giao tiếp<!--[cite: 1] --></span>
-                        <span class="tag-pill">Làm việc nhóm<!--[cite: 1] --></span>
-                        <span class="tag-pill">Giải quyết vấn đề<!--[cite: 1] --></span>
-                        <span class="tag-pill">Quản lý thời gian<!--[cite: 1] --></span>
-                        <span class="tag-pill">Tin học<!--[cite: 1] --></span>
-                        <span class="tag-pill">Thuyết trình<!--[cite: 1] --></span>
+                        <span class="tag-pill"><i class="fas fa-comments"></i> Kỹ năng giao tiếp</span>
+                        <span class="tag-pill"><i class="fas fa-users"></i> Kỹ năng làm việc nhóm</span>
+                        <span class="tag-pill"><i class="fas fa-lightbulb"></i> Kỹ năng giải quyết vấn đề</span>
+                        <span class="tag-pill"><i class="fas fa-clock"></i> Kỹ năng quản lý thời gian</span>
+                        <span class="tag-pill"><i class="fas fa-laptop-code"></i> Kỹ năng tin học</span>
+                        <span class="tag-pill"><i class="fas fa-chalkboard-teacher"></i> Kỹ năng thuyết trình</span>
                     </div>
                 </div>
             </div>
             
             <div class="right-col">
                 <div class="card reveal">
-                    <h2 class="section-title"><i class="fas fa-bullseye"></i> Mục tiêu nghề nghiệp</h2>
-                    <p style="color: var(--text-muted); font-size: 1.05rem;">Là sinh viên năm 3 chuyên ngành Ngôn ngữ Anh tại ULIS với gần 3 năm kinh nghiệm giảng dạy thực tế. Tích hợp nền tảng ngôn ngữ chuyên sâu cùng tư duy nhạy bén để mang đến phương pháp học tập tối ưu, giúp học viên vững kiến thức, tự tin ứng dụng và đồng hành phát triển chất lượng.<!--[cite: 1] --></p>
+                    <h2 class="section-title">
+                        <span class="section-title-left"><i class="fas fa-bullseye"></i> Mục tiêu nghề nghiệp</span>
+                    </h2>
+                    <p style="color: var(--text-muted); font-size: 1.04rem;">
+                        Là sinh viên năm 3 chuyên ngành Ngôn ngữ Anh tại ULIS với gần 3 năm kinh nghiệm giảng dạy thực tế. Tích hợp nền tảng ngôn ngữ chuyên sâu cùng tư duy nhạy bén để mang đến phương pháp học tập tối ưu, giúp học viên vững kiến thức, tự tin ứng dụng và đồng hành phát triển chất lượng.
+                    </p>
                 </div>
 
                 <div class="card reveal">
-                    <h2 class="section-title"><i class="fas fa-briefcase"></i> Kinh nghiệm làm việc nổi bật</h2>
+                    <h2 class="section-title">
+                        <span class="section-title-left"><i class="fas fa-briefcase"></i> Kinh nghiệm làm việc nổi bật</span>
+                    </h2>
                     
                     <div class="cv-item">
-                        <h4>Gia sư IELTS (Freelance)<!--[cite: 1] --></h4>
+                        <h4>Gia sư IELTS - Gia sư tự do (Freelance)</h4>
                         <div class="date"><i class="far fa-calendar-alt"></i> 08/2024 - 06/2026</div>
                         <ul>
-                            <li><strong>Đối tượng:</strong> Học sinh + Sinh viên | <strong>Hình thức:</strong> Nhóm - Online<!--[cite: 1] --></li>
-                            <li>Biên soạn lộ trình, giáo án bám sát cấu trúc đề; giải thích bản chất ngôn ngữ để rèn tư duy logic thay vì học vẹt.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> 2 HS đạt 6.0 overall, 1 HS đạt 6.5 overall và 1 HS đạt 7.0 overall.<!--[cite: 1] --></li>
+                            <li><strong>Đối tượng:</strong> Học sinh + Sinh viên | <strong>Hình thức:</strong> Nhóm - Online</li>
+                            <li>Biên soạn lộ trình, giáo án và hệ thống bài tập bám sát cấu trúc đề thi; giải thích bản chất ngôn ngữ để rèn tư duy logic thay vì học vẹt.</li>
+                            <li><strong>Thành tích:</strong> 2 học sinh đạt 6.0 overall, 1 học sinh đạt 6.5 overall và 1 học sinh đạt 7.0 overall.</li>
                         </ul>
                     </div>
 
                     <div class="cv-item">
-                        <h4>Gia sư Tiếng Anh lớp 11 (Freelance)<!--[cite: 1] --></h4>
+                        <h4>Gia sư Tiếng Anh lớp 11 - Gia sư tự do (Freelance)</h4>
                         <div class="date"><i class="far fa-calendar-alt"></i> 05/2025 - 05/2026</div>
                         <ul>
-                            <li><strong>Đối tượng:</strong> Học sinh lớp 11 | <strong>Hình thức:</strong> Nhóm - Online<!--[cite: 1] --></li>
-                            <li>Đánh giá năng lực đầu vào, tháo gỡ tâm lý "sợ tiếng Anh" và lồng ghép sở thích cá nhân.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Giúp học sinh nắm vững kiến thức gốc, cải thiện TBM từ 6 (lớp 10) lên 8.5+ (lớp 11).<!--[cite: 1] --></li>
+                            <li><strong>Đối tượng:</strong> Học sinh lớp 11 | <strong>Hình thức:</strong> Nhóm - Online</li>
+                            <li>Đánh giá năng lực đầu vào, tháo gỡ rào cản tâm lý "sợ tiếng Anh" và lồng ghép sở thích cá nhân vào bài giảng để khơi gợi hứng thú học tập.</li>
+                            <li><strong>Thành tích:</strong> Giúp học sinh nắm vững kiến thức gốc, cải thiện điểm trung bình môn Tiếng Anh từ 6 (TBM lớp 10) lên 8.5+ (TBM lớp 11).</li>
                         </ul>
                     </div>
 
                     <div class="cv-item">
-                        <h4>Gia sư Ôn thi vào lớp 10 (Chuyên)<!--[cite: 1] --></h4>
+                        <h4>Gia sư Tiếng Anh - Ôn thi vào lớp 10 (Chuyên)</h4>
                         <div class="date"><i class="far fa-calendar-alt"></i> 01/2025 - 05/2026</div>
                         <ul>
-                            <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online<!--[cite: 1] --></li>
-                            <li>Hệ thống ngữ pháp nâng cao, trau dồi từ vựng. Về đích chữa đề chuyên các tỉnh.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Hỗ trợ đỗ NV1 chuyên Anh với số điểm chuyên đạt 6.75/10.<!--[cite: 1] --></li>
+                            <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online (Google Meet)</li>
+                            <li>Hệ thống kiến thức ngữ pháp từ cơ bản đến nâng cao, kèm theo tập trung trau dồi từ vựng.</li>
+                            <li>Giai đoạn về đích tích cực chữa đề chuyên các tỉnh và giải thích chi tiết mọi khúc mắc trong quá trình luyện đề thực chiến.</li>
+                            <li><strong>Thành tích:</strong> Hỗ trợ học sinh thi đỗ nguyện vọng 1 chuyên Anh với số điểm chuyên đạt 6.75/10.</li>
                         </ul>
                     </div>
 
                     <div class="cv-item">
-                        <h4>Gia sư Ôn thi vào lớp 10<!--[cite: 1] --></h4>
+                        <h4>Gia sư Tiếng Anh - Ôn thi vào lớp 10</h4>
                         <div class="date"><i class="far fa-calendar-alt"></i> 06/2024 - 06/2026</div>
                         <ul>
-                            <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online<!--[cite: 1] --></li>
-                            <li>Thiết kế lộ trình cá nhân hóa tập trung đọc hiểu và ngữ pháp chuyên sâu.<!--[cite: 1] --></li>
-                            <li><strong>Thành tích:</strong> Hỗ trợ đỗ THPT công lập NV1 với điểm thi 8/10.<!--[cite: 1] --></li>
+                            <li><strong>Đối tượng:</strong> Học sinh lớp 9 | <strong>Hình thức:</strong> 1 kèm 1 - Online (Google Meet)</li>
+                            <li>Thiết kế lộ trình học tập cá nhân hóa tập trung vào rèn luyện kỹ năng đọc hiểu và ngữ pháp chuyên sâu.</li>
+                            <li><strong>Thành tích:</strong> Hỗ trợ học sinh thi đỗ trường THPT công lập nguyện vọng 1 với điểm thi môn Tiếng Anh đạt 8/10.</li>
                         </ul>
                     </div>
                 </div>
@@ -316,15 +769,669 @@
         </div>
     </div>
 
-    <!-- TAB: TUITION CALCULATOR (HỌC PHÍ) -->
+    <!-- ==================== TAB 2: LỘ TRÌNH IELTS 6.0+ (UPDATED 155 BUỔI) ==================== -->
+    <div id="ielts" class="tab-content">
+        <!-- BẢNG TỔNG QUAN LỘ TRÌNH IELTS 6.0+ -->
+        <div class="card reveal">
+            <h2 class="section-title">
+                <span class="section-title-left"><i class="fas fa-layer-group"></i> LỘ TRÌNH IELTS 6.0+ (TỔNG QUAN)</span>
+            </h2>
+            
+            <div class="overview-meta">
+                <div class="meta-chip"><i class="fas fa-clock"></i> Tổng thời gian dự kiến: 155 buổi ~ 19 tháng (1.5 năm)</div>
+                <div class="meta-chip"><i class="fas fa-sitemap"></i> Cấu trúc: 3 Giai đoạn (45 buổi GĐ1 • 70 buổi GĐ2 • 40 buổi GĐ3)</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">TIẾN TRÌNH</th>
+                            <th rowspan="2">READING</th>
+                            <th rowspan="2">LISTENING</th>
+                            <th colspan="2">WRITING</th>
+                            <th rowspan="2">SPEAKING</th>
+                        </tr>
+                        <tr>
+                            <th>TASK 1</th>
+                            <th>TASK 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- GIAI ĐOẠN 1 -->
+                        <tr class="stage-group-row">
+                            <td colspan="6"><i class="fas fa-flag"></i> Giai đoạn 1: Nền tảng (Tổng: 45 buổi)</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Số buổi</td>
+                            <td><strong>9</strong></td>
+                            <td><strong>6</strong></td>
+                            <td><strong>13</strong></td>
+                            <td><strong>10</strong></td>
+                            <td><strong>7</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nội dung</td>
+                            <td colspan="2">Các kỹ năng cơ bản</td>
+                            <td colspan="2">Xây dựng khung tư duy</td>
+                            <td>Làm quen các dạng bài</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Mục tiêu</td>
+                            <td><span class="target-pill">4.5+</span></td>
+                            <td><span class="target-pill">4.5+</span></td>
+                            <td><span class="target-pill">4.0+</span></td>
+                            <td><span class="target-pill">4.0+</span></td>
+                            <td><span class="target-pill">3.5+</span></td>
+                        </tr>
+
+                        <!-- GIAI ĐOẠN 2 -->
+                        <tr class="stage-group-row">
+                            <td colspan="6"><i class="fas fa-book-reader"></i> Giai đoạn 2: Lý thuyết (Tổng: 70 buổi)</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Số buổi</td>
+                            <td><strong>18</strong></td>
+                            <td><strong>12</strong></td>
+                            <td><strong>14</strong></td>
+                            <td><strong>20</strong></td>
+                            <td><strong>6</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nội dung</td>
+                            <td colspan="5">Chuyên sâu trau dồi từng dạng bài</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Mục tiêu</td>
+                            <td><span class="target-pill">6.0+</span></td>
+                            <td><span class="target-pill">6.0+</span></td>
+                            <td><span class="target-pill">4.5+</span></td>
+                            <td><span class="target-pill">4.5+</span></td>
+                            <td><span class="target-pill">4.5+</span></td>
+                        </tr>
+
+                        <!-- GIAI ĐOẠN 3 -->
+                        <tr class="stage-group-row">
+                            <td colspan="6"><i class="fas fa-trophy"></i> Giai đoạn 3: Về đích (Tổng: 40 buổi)</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Số buổi</td>
+                            <td><strong>8</strong></td>
+                            <td><strong>8</strong></td>
+                            <td><strong>8</strong></td>
+                            <td><strong>10</strong></td>
+                            <td><strong>6</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Nội dung</td>
+                            <td colspan="5">Thực chiến + luyện đề dưới áp lực thời gian</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Mục tiêu</td>
+                            <td><span class="target-pill">6.5+</span></td>
+                            <td><span class="target-pill">6.5+</span></td>
+                            <td><span class="target-pill">5.5+</span></td>
+                            <td><span class="target-pill">5.5+</span></td>
+                            <td><span class="target-pill">5.0+</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- THANH CÔNG CỤ TÌM KIẾM & ĐÓNG MỞ LỘ TRÌNH -->
+        <div class="roadmap-toolbar reveal">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="ielts-search" placeholder="Tìm nhanh dạng bài, chủ đề trong lộ trình IELTS (VD: Process, Map, Education...)" oninput="filterSessions('ielts', this.value)">
+            </div>
+            <div class="toolbar-actions">
+                <button class="tool-btn" onclick="toggleAllDetails('ielts', true)"><i class="fas fa-expand-alt"></i> Mở rộng tất cả</button>
+                <button class="tool-btn" onclick="toggleAllDetails('ielts', false)"><i class="fas fa-compress-alt"></i> Thu gọn tất cả</button>
+            </div>
+        </div>
+
+        <!-- CHI TIẾT TỪNG GIAI ĐOẠN IELTS -->
+        <div class="timeline">
+            <!-- ==================== GIAI ĐOẠN 1 ==================== -->
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 1</span>
+                        <span>NỀN TẢNG (Các kỹ năng cơ bản • Xây dựng khung tư duy • Làm quen dạng bài)</span>
+                        <span class="stage-meta-tag">45 Buổi</span>
+                    </div>
+                </summary>
+                <div class="details-content ielts-layout">
+                    <!-- HÀNG 1: READING + LISTENING -->
+                    <div class="ielts-row-top">
+                        <!-- READING GĐ1 -->
+                        <div class="skill-card sk-reading">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-book-open"></i> READING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">9 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Multiple choice</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>True/False/Not given</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Yes/No/Not given</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Note/Table/Flow-chart/Diagram completion</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Sentence completion</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Summary completion</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Matching features</span></li>
+                                <li><span class="sess-tag">Buổi 8</span> <span>Matching information</span></li>
+                                <li><span class="sess-tag">Buổi 9</span> <span>Matching headings</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- LISTENING GĐ1 -->
+                        <div class="skill-card sk-listening">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-headphones-alt"></i> LISTENING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">6 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.5+</span>
+                                </div>
+                            </div>
+                            <div class="sub-section-label">DẠNG BÀI TRONG SECTION 1 + 2</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Multiple choice + Note/Form/Table</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Sentence/Flow-chart completion + Matching</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Map/Plan/Diagram labelling</span></li>
+                            </ul>
+                            <div class="sub-section-label">DẠNG BÀI TRONG SECTION 3 + 4</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 4</span> <span>Multiple choice + Note/Form/Table</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Sentence/Flow-chart completion + Matching</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Map/Plan/Diagram labelling</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- HÀNG 2: TASK 1 + TASK 2 + SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <!-- TASK 1 GĐ1 -->
+                        <div class="skill-card sk-task1">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-chart-pie"></i> TASK 1</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">13 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.0+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Tổng quan TASK 1 + Dynamic chart</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Tổng quan Static chart</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Tổng ôn Dynamic + Static chart</span></li>
+                                <li><span class="sess-tag">Buổi 4 + 5</span> <span>Hướng dẫn cách viết Dynamic chart (Full)</span></li>
+                                <li><span class="sess-tag">Buổi 6 + 7</span> <span>Hướng dẫn cách viết Static chart (Full)</span></li>
+                                <li><span class="sess-tag">Buổi 8 + 9</span> <span>Hướng dẫn cách viết Natural Process (Full)</span></li>
+                                <li><span class="sess-tag">Buổi 10 + 11</span> <span>Hướng dẫn cách viết Man-made Process (Full)</span></li>
+                                <li><span class="sess-tag">Buổi 12 + 13</span> <span>Hướng dẫn cách viết Maps (Full)</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- TASK 2 GĐ1 -->
+                        <div class="skill-card sk-task2">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-pen-nib"></i> TASK 2</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">10 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.0+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Tổng quan TASK 2 + tiêu chí TR</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Tổng quan tiêu chí CC</span></li>
+                                <li><span class="sess-tag">Buổi 3 + 4</span> <span>Tư duy viết dạng Agree or Disagree</span></li>
+                                <li><span class="sess-tag">Buổi 5 + 6</span> <span>Tư duy viết dạng Discussion</span></li>
+                                <li><span class="sess-tag">Buổi 7 + 8</span> <span>Tư duy viết dạng Advantages and Disadvantages</span></li>
+                                <li><span class="sess-tag">Buổi 9 + 10</span> <span>Tư duy viết dạng Problems and Solutions</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- SPEAKING GĐ1 -->
+                        <div class="skill-card sk-speaking">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-microphone-alt"></i> SPEAKING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">7 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 3.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Tổng quan + Các tiêu chí chấm điểm</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Hướng dẫn cách trả lời PART 1</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Hướng dẫn cách trả lời PART 2</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Hướng dẫn cách trả lời PART 3</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Actual test 1</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Actual test 2</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Actual test 3</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- ==================== GIAI ĐOẠN 2 ==================== -->
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 2</span>
+                        <span>LÝ THUYẾT (Chuyên sâu trau dồi từng dạng bài)</span>
+                        <span class="stage-meta-tag">70 Buổi</span>
+                    </div>
+                </summary>
+                <div class="details-content ielts-layout">
+                    <!-- HÀNG 1: READING + LISTENING -->
+                    <div class="ielts-row-top">
+                        <!-- READING GĐ2 -->
+                        <div class="skill-card sk-reading">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-book-open"></i> READING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">18 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 6.0+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1 + 2</span> <span>Multiple choice</span></li>
+                                <li><span class="sess-tag">Buổi 3 + 4</span> <span>True/False/Not given</span></li>
+                                <li><span class="sess-tag">Buổi 5 + 6</span> <span>Yes/No/Not given</span></li>
+                                <li><span class="sess-tag">Buổi 7 + 8</span> <span>Note/Table/Flow-chart/Diagram completion</span></li>
+                                <li><span class="sess-tag">Buổi 9 + 10</span> <span>Sentence completion</span></li>
+                                <li><span class="sess-tag">Buổi 11 + 12</span> <span>Summary completion</span></li>
+                                <li><span class="sess-tag">Buổi 13 + 14</span> <span>Matching features</span></li>
+                                <li><span class="sess-tag">Buổi 15 + 16</span> <span>Matching information</span></li>
+                                <li><span class="sess-tag">Buổi 17 + 18</span> <span>Matching headings</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- LISTENING GĐ2 -->
+                        <div class="skill-card sk-listening">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-headphones-alt"></i> LISTENING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">12 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 6.0+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1 + 2</span> <span>Multiple choice</span></li>
+                                <li><span class="sess-tag">Buổi 3 + 4</span> <span>Note/Form completion</span></li>
+                                <li><span class="sess-tag">Buổi 5 + 6</span> <span>Table completion</span></li>
+                                <li><span class="sess-tag">Buổi 7 + 8</span> <span>Sentence/Summary/Flow-chart/Diagram Completion</span></li>
+                                <li><span class="sess-tag">Buổi 9 + 10</span> <span>Matching</span></li>
+                                <li><span class="sess-tag">Buổi 11 + 12</span> <span>Map/Plan/Diagram labelling</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- HÀNG 2: TASK 1 + TASK 2 + SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <!-- TASK 1 GĐ2 -->
+                        <div class="skill-card sk-task1">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-chart-pie"></i> TASK 1</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">14 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1 + 2</span> <span>Luyện tập dạng Line graph</span></li>
+                                <li><span class="sess-tag">Buổi 3 + 4</span> <span>Luyện tập dạng Bar chart</span></li>
+                                <li><span class="sess-tag">Buổi 5 + 6</span> <span>Luyện tập dạng Pie chart</span></li>
+                                <li><span class="sess-tag">Buổi 7 + 8</span> <span>Luyện tập dạng Table</span></li>
+                                <li><span class="sess-tag">Buổi 9 + 10</span> <span>Luyện tập dạng Maps</span></li>
+                                <li><span class="sess-tag">Buổi 11 + 12</span> <span>Luyện tập dạng Natural Process</span></li>
+                                <li><span class="sess-tag">Buổi 13 + 14</span> <span>Luyện tập dạng Man-made Process</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- TASK 2 GĐ2 -->
+                        <div class="skill-card sk-task2">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-pen-nib"></i> TASK 2</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">20 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1 + 2</span> <span>Luyện tập chủ đề Education</span></li>
+                                <li><span class="sess-tag">Buổi 3 + 4</span> <span>Luyện tập chủ đề Environment</span></li>
+                                <li><span class="sess-tag">Buổi 5 + 6</span> <span>Luyện tập chủ đề Work and Careers</span></li>
+                                <li><span class="sess-tag">Buổi 7 + 8</span> <span>Luyện tập chủ đề Government and Criminal justice</span></li>
+                                <li><span class="sess-tag">Buổi 9 + 10</span> <span>Luyện tập chủ đề Science and Technology</span></li>
+                                <li><span class="sess-tag">Buổi 11 + 12</span> <span>Luyện tập chủ đề Health</span></li>
+                                <li><span class="sess-tag">Buổi 13 + 14</span> <span>Luyện tập chủ đề Entertainment</span></li>
+                                <li><span class="sess-tag">Buổi 15 + 16</span> <span>Luyện tập chủ đề Society and Culture</span></li>
+                                <li><span class="sess-tag">Buổi 17 + 18</span> <span>Luyện tập chủ đề Economics</span></li>
+                                <li><span class="sess-tag">Buổi 19 + 20</span> <span>Luyện tập chủ đề Travel and Transportation</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- SPEAKING GĐ2 -->
+                        <div class="skill-card sk-speaking">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-microphone-alt"></i> SPEAKING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">6 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 4.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Luyện tập Part 1</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Luyện tập Part 2</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Luyện tập Part 3</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Full test 1</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Full test 1</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Full test 1</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- ==================== GIAI ĐOẠN 3 ==================== -->
+            <details open class="stage-details reveal end-of-roadmap">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 3</span>
+                        <span>VỀ ĐÍCH (Thực chiến + Luyện đề dưới áp lực thời gian)</span>
+                        <span class="stage-meta-tag">40 Buổi</span>
+                    </div>
+                </summary>
+                <div class="details-content ielts-layout">
+                    <!-- HÀNG 1: READING + LISTENING -->
+                    <div class="ielts-row-top">
+                        <!-- READING GĐ3 -->
+                        <div class="skill-card sk-reading">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-book-open"></i> READING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">8 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 6.5+</span>
+                                </div>
+                            </div>
+                            <div class="sub-section-label">CAMBRIDGE PRACTICE TEST</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Cam - Test 1</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Cam - Test 2</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Cam - Test 3</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Cam - Test 4</span></li>
+                            </ul>
+                            <div class="sub-section-label">IELTS PRACTICE TEST PLUS</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 5</span> <span>Plus - Test 1</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Plus - Test 2</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Plus - Test 3</span></li>
+                                <li><span class="sess-tag">Buổi 8</span> <span>Plus - Test 4</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- LISTENING GĐ3 -->
+                        <div class="skill-card sk-listening">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-headphones-alt"></i> LISTENING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">8 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 6.5+</span>
+                                </div>
+                            </div>
+                            <div class="sub-section-label">CAMBRIDGE PRACTICE TEST</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Cam - Test 1</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Cam - Test 2</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Cam - Test 3</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Cam - Test 4</span></li>
+                            </ul>
+                            <div class="sub-section-label">IELTS PRACTICE TEST PLUS</div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 5</span> <span>Plus - Test 1</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Plus - Test 2</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Plus - Test 3</span></li>
+                                <li><span class="sess-tag">Buổi 8</span> <span>Plus - Test 4</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- HÀNG 2: TASK 1 + TASK 2 + SPEAKING -->
+                    <div class="ielts-row-bottom">
+                        <!-- TASK 1 GĐ3 -->
+                        <div class="skill-card sk-task1">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-chart-pie"></i> TASK 1</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">8 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 5.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Tổng ôn dạng Line graph</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Tổng ôn dạng Bar chart</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Tổng ôn dạng Pie chart</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Tổng ôn dạng Table</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Tổng ôn dạng Maps</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Tổng ôn dạng Natural Process</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Tổng ôn dạng Man-made Process</span></li>
+                                <li><span class="sess-tag">Buổi 8</span> <span>Tổng ôn dạng Mixed charts</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- TASK 2 GĐ3 -->
+                        <div class="skill-card sk-task2">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-pen-nib"></i> TASK 2</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">10 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 5.5+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Tổng ôn chủ đề Education</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Tổng ôn chủ đề Environment</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Tổng ôn chủ đề Work and Careers</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Tổng ôn chủ đề Government and Criminal justice</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Tổng ôn chủ đề Science and Technology</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Tổng ôn chủ đề Health</span></li>
+                                <li><span class="sess-tag">Buổi 7</span> <span>Tổng ôn chủ đề Entertainment</span></li>
+                                <li><span class="sess-tag">Buổi 8</span> <span>Tổng ôn chủ đề Society and Culture</span></li>
+                                <li><span class="sess-tag">Buổi 9</span> <span>Tổng ôn chủ đề Economics</span></li>
+                                <li><span class="sess-tag">Buổi 10</span> <span>Tổng ôn chủ đề Travel and Transportation</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- SPEAKING GĐ3 -->
+                        <div class="skill-card sk-speaking">
+                            <div class="skill-header">
+                                <div class="skill-title"><i class="fas fa-microphone-alt"></i> SPEAKING</div>
+                                <div class="skill-badges">
+                                    <span class="count-badge">6 Buổi</span>
+                                    <span class="goal-badge">Mục tiêu: 5.0+</span>
+                                </div>
+                            </div>
+                            <ul class="session-list">
+                                <li><span class="sess-tag">Buổi 1</span> <span>Actual test 1</span></li>
+                                <li><span class="sess-tag">Buổi 2</span> <span>Actual test 2</span></li>
+                                <li><span class="sess-tag">Buổi 3</span> <span>Actual test 3</span></li>
+                                <li><span class="sess-tag">Buổi 4</span> <span>Actual test 4</span></li>
+                                <li><span class="sess-tag">Buổi 5</span> <span>Actual test 5</span></li>
+                                <li><span class="sess-tag">Buổi 6</span> <span>Actual test 6</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 3: ÔN VÀO 10 ==================== -->
+    <div id="vao10" class="tab-content">
+        <div class="timeline">
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 1</span>
+                        <span>XÂY DỰNG NỀN MÓNG NGỮ PHÁP</span>
+                        <span class="stage-meta-tag">16 Chuyên đề</span>
+                    </div>
+                </summary>
+                <div class="details-content skill-grid">
+                    <div class="skill-card sk-reading">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Chuyên đề 1</span> <span>NGỮ ÂM</span></li>
+                            <li><span class="sess-tag">Chuyên đề 2</span> <span>SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 3</span> <span>CÂU BỊ ĐỘNG</span></li>
+                            <li><span class="sess-tag">Chuyên đề 4</span> <span>CÂU GIÁN TIẾP</span></li>
+                            <li><span class="sess-tag">Chuyên đề 5</span> <span>CÂU ĐIỀU KIỆN</span></li>
+                            <li><span class="sess-tag">Chuyên đề 6</span> <span>CÂU HỎI ĐUÔI</span></li>
+                            <li><span class="sess-tag">Chuyên đề 7</span> <span>CÂU ƯỚC</span></li>
+                            <li><span class="sess-tag">Chuyên đề 8</span> <span>CÂU SO SÁNH</span></li>
+                        </ul>
+                    </div>
+                    <div class="skill-card sk-listening">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Chuyên đề 9</span> <span>MỆNH ĐỀ QUAN HỆ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 10</span> <span>DANH ĐỘNG TỪ VÀ ĐỘNG TỪ NGUYÊN MẪU</span></li>
+                            <li><span class="sess-tag">Chuyên đề 11</span> <span>CỤM ĐỘNG TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 12</span> <span>MẠO TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 13</span> <span>GIỚI TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 14</span> <span>LƯỢNG TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 15</span> <span>TỪ LOẠI</span></li>
+                            <li><span class="sess-tag">Chuyên đề 16</span> <span>LIÊN TỪ</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 2</span>
+                        <span>ÔN TẬP THEO TỪNG DẠNG ĐỀ</span>
+                        <span class="stage-meta-tag">4 Dạng bài</span>
+                    </div>
+                </summary>
+                <div class="details-content skill-grid">
+                    <div class="skill-card sk-task1">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Dạng bài 1</span> <span>PHONOLOGY - NGỮ ÂM</span></li>
+                            <li><span class="sess-tag">Dạng bài 2</span> <span>GRAMMAR & VOCABULARY - NGỮ PHÁP & TỪ VỰNG</span></li>
+                            <li><span class="sess-tag">Dạng bài 3</span> <span>READING - ĐỌC HIỂU</span></li>
+                            <li><span class="sess-tag">Dạng bài 4</span> <span>WRITING - VIẾT</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+
+            <details open class="stage-details reveal end-of-roadmap">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 3</span>
+                        <span>LUYỆN ĐỀ</span>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <p style="color: var(--text-muted); font-size: 1.05rem; padding: 10px;">
+                        Thực chiến với các bộ đề bám sát cấu trúc thi vào 10 chuyên và công lập. Giải thích chi tiết mọi khúc mắc và rèn luyện tâm lý, kỹ năng phân bổ thời gian trong phòng thi.
+                    </p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 4: ÔN THPT ==================== -->
+    <div id="thpt" class="tab-content">
+        <div class="timeline">
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 1</span>
+                        <span>XÂY DỰNG NỀN MÓNG NGỮ PHÁP</span>
+                        <span class="stage-meta-tag">16 Chuyên đề</span>
+                    </div>
+                </summary>
+                <div class="details-content skill-grid">
+                    <div class="skill-card sk-reading">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Chuyên đề 1</span> <span>SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 2</span> <span>ĐỘNG TỪ KHUYẾT THIẾU</span></li>
+                            <li><span class="sess-tag">Chuyên đề 3</span> <span>DANH ĐỘNG TỪ VÀ ĐỘNG TỪ NGUYÊN MẪU</span></li>
+                            <li><span class="sess-tag">Chuyên đề 4</span> <span>ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI</span></li>
+                            <li><span class="sess-tag">Chuyên đề 5</span> <span>SO SÁNH</span></li>
+                            <li><span class="sess-tag">Chuyên đề 6</span> <span>TRẬT TỰ CỦA TÍNH TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 7</span> <span>MẠO TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 8</span> <span>SẮP XẾP CÂU</span></li>
+                        </ul>
+                    </div>
+                    <div class="skill-card sk-listening">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Chuyên đề 9</span> <span>TỪ CHỈ SỐ LƯỢNG</span></li>
+                            <li><span class="sess-tag">Chuyên đề 10</span> <span>LIÊN TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 11</span> <span>CÂU BỊ ĐỘNG</span></li>
+                            <li><span class="sess-tag">Chuyên đề 12</span> <span>ĐỌC ĐIỀN KHUYẾT THÔNG TIN</span></li>
+                            <li><span class="sess-tag">Chuyên đề 13</span> <span>CÂU ĐIỀU KIỆN</span></li>
+                            <li><span class="sess-tag">Chuyên đề 14</span> <span>MỆNH ĐỀ QUAN HỆ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 15</span> <span>GIỚI TỪ</span></li>
+                            <li><span class="sess-tag">Chuyên đề 16</span> <span>ĐỌC HIỂU (8 CÂU)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            
+            <details open class="stage-details reveal">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 2</span>
+                        <span>ÔN TẬP CHUYÊN SÂU THEO TỪNG DẠNG ĐỀ</span>
+                    </div>
+                </summary>
+                <div class="details-content skill-grid">
+                    <div class="skill-card sk-task2">
+                        <ul class="session-list">
+                            <li><span class="sess-tag">Dạng bài 1</span> <span>ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI</span></li>
+                            <li><span class="sess-tag">Dạng bài 3</span> <span>SẮP XẾP CÂU</span></li>
+                            <li><span class="sess-tag">Dạng bài 4</span> <span>ĐỌC ĐIỀN KHUYẾT THÔNG TIN</span></li>
+                            <li><span class="sess-tag">Dạng bài 5</span> <span>ĐỌC HIỂU (1 BÀI 8 CÂU + 1 BÀI 10 CÂU)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+
+            <details open class="stage-details reveal end-of-roadmap">
+                <summary class="stage-summary">
+                    <div class="stage-summary-left">
+                        <span class="stage-num-badge">Giai đoạn 3</span>
+                        <span>LUYỆN ĐỀ</span>
+                    </div>
+                </summary>
+                <div class="details-content">
+                    <p style="color: var(--text-muted); font-size: 1.05rem; padding: 10px;">
+                        Thực chiến với các bộ đề bám sát cấu trúc thi THPT Quốc gia mới nhất của Bộ GD&ĐT.
+                    </p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 5: TUITION CALCULATOR (BÁO GIÁ) ==================== -->
     <div id="tuition" class="tab-content">
-        <div class="card reveal" style="max-width: 800px; margin: 0 auto;">
-            <h2 class="section-title"><i class="fas fa-calculator"></i> Ước tính Học phí Hàng tháng</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">Lựa chọn khóa học và hình thức phù hợp dưới đây để xem mức học phí dự kiến. Tính toán tự động dựa trên tiêu chuẩn 4 tuần/tháng.</p>
+        <div class="card reveal" style="max-width: 840px; margin: 0 auto;">
+            <h2 class="section-title">
+                <span class="section-title-left"><i class="fas fa-calculator"></i> Ước tính Học phí Hàng tháng</span>
+            </h2>
+            <p style="color: var(--text-muted); margin-bottom: 28px; font-size: 1.02rem;">
+                Chọn khóa học, hình thức và tần suất học dưới đây để xem mức học phí dự kiến hàng tháng (tính trên tiêu chuẩn 4 tuần/tháng).
+            </p>
             
             <!-- Bộ lọc 1: Khóa học -->
             <div class="calc-group">
-                <label class="calc-label">1. Bạn đang quan tâm khóa học nào?</label>
+                <label class="calc-label">1. Khóa học bạn đang quan tâm:</label>
                 <div class="calc-options">
                     <div class="calc-option">
                         <input type="radio" name="calc_course" id="course_ielts" value="ielts" checked onchange="updateCalculator()">
@@ -362,7 +1469,7 @@
 
             <!-- Bộ lọc 3: Tần suất -->
             <div class="calc-group">
-                <label class="calc-label">3. Tần suất học:</label>
+                <label class="calc-label">3. Tần suất học trong tuần:</label>
                 <div class="calc-options">
                     <div class="calc-option">
                         <input type="radio" name="calc_freq" id="freq_2" value="8" checked onchange="updateCalculator()">
@@ -377,404 +1484,19 @@
 
             <!-- Bảng kết quả -->
             <div class="calc-result-box">
-                <div class="calc-result-title">HỌC PHÍ DỰ KIẾN</div>
+                <div class="calc-result-title">HỌC PHÍ DỰ KIẾN / THÁNG</div>
                 <div class="calc-result-value" id="calc-total">0 VNĐ</div>
                 <div class="calc-result-detail" id="calc-detail">Đơn giá: 0 VNĐ / buổi</div>
-                <a href="https://zalo.me/0868448794" target="_blank" class="contact-action-btn"><i class="fas fa-paper-plane"></i> Đăng ký tư vấn khóa học này</a>
+                <a href="https://zalo.me/0868448794" target="_blank" class="contact-action-btn">
+                    <i class="fas fa-paper-plane"></i> Nhắn Zalo tư vấn lộ trình này
+                </a>
             </div>
-        </div>
-    </div>
-
-    <!-- TAB 2: IELTS -->
-    <div id="ielts" class="tab-content">
-        <div class="card reveal">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> Tổng quan Roadmap IELTS 6.0+<!--[cite: 5] --></h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Tổng thời gian dự kiến: <strong style="color: var(--primary);">144 buổi ~ 18 tháng (1.5 năm)</strong><!--[cite: 5] --></p>
-            
-            <div class="table-responsive">
-                <table class="summary-table">
-                    <tr><th>Tiến trình<!--[cite: 5] --></th><th>Reading</th><th>Listening</th><th>Writing T1</th><th>Writing T2</th><th>Speaking</th></tr>
-                    <tr><td><strong>Giai đoạn 1: Nền tảng</strong> (4.0+)<!--[cite: 5] --></td><td>10 buổi</td><td>6 buổi</td><td>10 buổi</td><td>8 buổi</td><td>5 buổi</td></tr>
-                    <tr><td><strong>Giai đoạn 2: Lý thuyết</strong> (5.0+)<!--[cite: 5] --></td><td>20 buổi</td><td>14 buổi</td><td>10 buổi</td><td>10 buổi</td><td>3 buổi</td></tr>
-                    <tr><td><strong>Giai đoạn 3: Về đích</strong> (6.0+)<!--[cite: 5] --></td><td>12 buổi</td><td>12 buổi</td><td>10 buổi</td><td>10 buổi</td><td>6 buổi</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="timeline">
-            <!-- IELTS GĐ 1 -->
-            <details open class="reveal">
-                <summary>GIAI ĐOẠN 1: NỀN TẢNG (Làm quen dạng bài)<!--[cite: 4, 5] --></summary>
-                <div class="details-content ielts-layout">
-                    <!-- HÀNG 1 -->
-                    <div class="ielts-row-top">
-                        <div class="skill-card">
-                            <div class="skill-title">Reading <span>10 Buổi</span><!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Multiple choice<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> True/False/Not given<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Yes/No/Not given<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Note/Table/Flow-chart/Diagram completion<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> Sentence completion<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> Summary completion<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> Matching features<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> Matching information<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> Matching headings<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> Short answer<!--[cite: 4] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Listening <span>6 Buổi</span><!--[cite: 4] --></div>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">SECTION 1 + 2<!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Multiple choice + Note/Form/Table<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Sentence/Flow-chart completion + Matching<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Map/Plan/Diagram labelling + Short answer<!--[cite: 4] --></li>
-                            </ul>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">SECTION 3 + 4<!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 4</span> Multiple choice + Note/Form/Table<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> Sentence/Flow-chart completion + Matching<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> Map/Plan/Diagram labelling + Short answer<!--[cite: 4] --></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- HÀNG 2 -->
-                    <div class="ielts-row-bottom">
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Tổng quan về TASK 1<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Tổng quan về Dynamic chart<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Tổng quan về Static chart<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> HD viết intro + overview Line graph<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> HD viết overview Bar chart<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> HD viết overview Pie chart<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> HD viết overview Table<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> HD viết intro + overview Map<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> HD viết intro + overview Process<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> HD viết intro + overview Mixed chart<!--[cite: 4] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 2 <span>8 Buổi</span><!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Tổng quan về TASK 2<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 2+3</span> PP Thematic progression<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> HD viết dạng Agree or Disagree<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> HD viết dạng Discussion<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> HD viết dạng Advantages/Disadvantages<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> HD viết dạng Problems and Solutions<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> HD viết dạng Two-part questions<!--[cite: 4] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Speaking <span>5 Buổi</span><!--[cite: 4] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Tổng quan + Các tiêu chí<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Hướng dẫn trả lời PART 1<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Hướng dẫn trả lời PART 2<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Hướng dẫn trả lời PART 3<!--[cite: 4] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> Actual test<!--[cite: 4] --></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <!-- IELTS GĐ 2 -->
-            <details class="reveal">
-                <summary>GIAI ĐOẠN 2: LÝ THUYẾT (Trau dồi chuyên sâu)<!--[cite: 3, 5] --></summary>
-                <div class="details-content ielts-layout">
-                    <!-- HÀNG 1 -->
-                    <div class="ielts-row-top">
-                        <div class="skill-card">
-                            <div class="skill-title">Reading <span>20 Buổi</span><!--[cite: 3] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1+2</span> Multiple choice<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 3+4</span> True/False/Not given<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 5+6</span> Yes/No/Not given<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 7+8</span> Note/Table/Flow-chart/Diagram completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 9+10</span> Sentence completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 11+12</span> Summary completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 13+14</span> Matching features<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 15+16</span> Matching information<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 17+18</span> Matching headings<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 19+20</span> Short answer<!--[cite: 3] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Listening <span>14 Buổi</span><!--[cite: 3] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1+2</span> Multiple choice<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 3+4</span> Note/Form completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 5+6</span> Table completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 7+8</span> Sentence/Summary/Flow-chart/Diagram Completion<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 9+10</span> Matching<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 11+12</span> Map/Plan/Diagram labelling<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 13+14</span> Short answer<!--[cite: 3] --></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- HÀNG 2 -->
-                    <div class="ielts-row-bottom">
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 3] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> HD viết body Line graph<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 2+3</span> HD viết body Bar chart<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 4+5</span> HD viết body Pie chart<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 6+7</span> HD viết body Table<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> HD viết body Map<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> HD viết body Process<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> HD viết body Mixed chart<!--[cite: 3] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 2 <span>10 Buổi</span><!--[cite: 3] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> HD viết CĐ Education<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> HD viết CĐ Environment<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> HD viết CĐ Work and Careers<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> HD viết CĐ Government/Criminal justice<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> HD viết CĐ Science and Technology<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> HD viết CĐ Health<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> HD viết CĐ Entertainment<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> HD viết CĐ Society and Culture<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> HD viết CĐ Economics<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> HD viết CĐ Travel and Transportation<!--[cite: 3] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Speaking <span>3 Buổi</span><!--[cite: 3] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Luyện tập trau dồi Part 1<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Luyện tập trau dồi Part 2<!--[cite: 3] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Luyện tập trau dồi Part 3<!--[cite: 3] --></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <!-- IELTS GĐ 3 -->
-            <details class="reveal end-of-roadmap">
-                <summary>GIAI ĐOẠN 3: VỀ ĐÍCH (Luyện đề áp lực)<!--[cite: 2, 5] --></summary>
-                <div class="details-content ielts-layout">
-                    <!-- HÀNG 1 -->
-                    <div class="ielts-row-top">
-                        <div class="skill-card">
-                            <div class="skill-title">Reading <span>12 Buổi</span><!--[cite: 2] --></div>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Cam - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Cam - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Cam - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Cam - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">IELTS PRACTICE TEST PLUS<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 5</span> Plus - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> Plus - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> Plus - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> Plus - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 9</span> Cam - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> Cam - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 11</span> Cam - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 12</span> Cam - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Listening <span>12 Buổi</span><!--[cite: 2] --></div>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Cam - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Cam - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Cam - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Cam - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">IELTS PRACTICE TEST PLUS<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 5</span> Plus - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> Plus - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> Plus - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> Plus - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                            <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin: 15px 0 10px;">CAMBRIDGE PRACTICE TEST<!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 9</span> Cam - Test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> Cam - Test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 11</span> Cam - Test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 12</span> Cam - Test 4<!--[cite: 2] --></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- HÀNG 2 -->
-                    <div class="ielts-row-bottom">
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 1 <span>10 Buổi</span><!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Tổng ôn Line graph<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 2+3</span> Tổng ôn Bar chart<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 4+5</span> Tổng ôn Pie chart<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 6+7</span> Tổng ôn Table<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> Tổng ôn Map<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> Tổng ôn Process<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> Tổng ôn Mixed chart<!--[cite: 2] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Writing Task 2 <span>10 Buổi</span><!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Tổng ôn CĐ Education<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Tổng ôn CĐ Environment<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Tổng ôn CĐ Work and Careers<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Tổng ôn CĐ Government/Criminal justice<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> Tổng ôn CĐ Science and Technology<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 6</span> Tổng ôn CĐ Health<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 7</span> Tổng ôn CĐ Entertainment<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 8</span> Tổng ôn CĐ Society and Culture<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 9</span> Tổng ôn CĐ Economics<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 10</span> Tổng ôn CĐ Travel/Transportation<!--[cite: 2] --></li>
-                            </ul>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-title">Speaking <span>5 Buổi</span><!--[cite: 2] --></div>
-                            <ul class="session-list">
-                                <li><span class="sess-tag">Buổi 1</span> Actual test 1<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 2</span> Actual test 2<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 3</span> Actual test 3<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 4</span> Actual test 4<!--[cite: 2] --></li>
-                                <li><span class="sess-tag">Buổi 5</span> Actual test 5<!--[cite: 2] --></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </div>
-    </div>
-
-    <!-- TAB 3: ÔN VÀO 10 -->
-    <div id="vao10" class="tab-content">
-        <div class="timeline">
-            <details open class="reveal">
-                <summary>GIAI ĐOẠN 1: XÂY DỰNG NỀN MÓNG NGỮ PHÁP<!--[cite: 7] --></summary>
-                <div class="details-content skill-grid">
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Chuyên đề 1</span> NGỮ ÂM<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 2</span> SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 3</span> CÂU BỊ ĐỘNG<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 4</span> CÂU GIÁN TIẾP<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 5</span> CÂU ĐIỀU KIỆN<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 6</span> CÂU HỎI ĐUÔI<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 7</span> CÂU ƯỚC<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 8</span> CÂU SO SÁNH<!--[cite: 7] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Chuyên đề 9</span> MỆNH ĐỀ QUAN HỆ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 10</span> DANH ĐỘNG TỪ & ĐỘNG TỪ NGUYÊN MẪU<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 11</span> CỤM ĐỘNG TỪ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 12</span> MẠO TỪ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 13</span> GIỚI TỪ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 14</span> LƯỢNG TỪ<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 15</span> TỪ LOẠI<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Chuyên đề 16</span> LIÊN TỪ<!--[cite: 7] --></li>
-                        </ul>
-                    </div>
-                </div>
-            </details>
-            
-            <details class="reveal">
-                <summary>GIAI ĐOẠN 2: ÔN TẬP THEO TỪNG DẠNG ĐỀ<!--[cite: 7] --></summary>
-                <div class="details-content skill-grid">
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Dạng bài 1</span> PHONOLOGY - NGỮ ÂM<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng bài 2</span> GRAMMAR & VOCABULARY - NGỮ PHÁP & TỪ VỰNG<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng bài 3</span> READING - ĐỌC HIỂU<!--[cite: 7] --></li>
-                            <li><span class="sess-tag">Dạng bài 4</span> WRITING - VIẾT<!--[cite: 7] --></li>
-                        </ul>
-                    </div>
-                </div>
-            </details>
-
-            <details class="reveal end-of-roadmap">
-                <summary>GIAI ĐOẠN 3: LUYỆN ĐỀ<!--[cite: 7] --></summary>
-                <div class="details-content">
-                    <p style="color: var(--text-muted); font-size: 1.1rem; padding: 20px;">Thực chiến với các bộ đề bám sát cấu trúc thi vào 10 chuyên và công lập. Tháo gỡ khúc mắc, rèn luyện kỹ năng phòng thi.</p>
-                </div>
-            </details>
-        </div>
-    </div>
-
-    <!-- TAB 4: ÔN THPT -->
-    <div id="thpt" class="tab-content">
-        <div class="timeline">
-            <details open class="reveal">
-                <summary>GIAI ĐOẠN 1: XÂY DỰNG NỀN MÓNG NGỮ PHÁP<!--[cite: 6] --></summary>
-                <div class="details-content skill-grid">
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Chuyên đề 1</span> SỰ HOÀ HỢP GIỮA CHỦ NGỮ VÀ VỊ NGỮ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 2</span> ĐỘNG TỪ KHUYẾT THIẾU<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 3</span> DANH ĐỘNG TỪ & ĐỘNG TỪ NGUYÊN MẪU<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 4</span> ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 5</span> SO SÁNH<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 6</span> TRẬT TỰ CỦA TÍNH TỪ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 7</span> MẠO TỪ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 8</span> SẮP XẾP CÂU<!--[cite: 6] --></li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Chuyên đề 9</span> TỪ CHỈ SỐ LƯỢNG<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 10</span> LIÊN TỪ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 11</span> CÂU BỊ ĐỘNG<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 12</span> ĐỌC ĐIỀN KHUYẾT THÔNG TIN<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 13</span> CÂU ĐIỀU KIỆN<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 14</span> MỆNH ĐỀ QUAN HỆ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 15</span> GIỚI TỪ<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Chuyên đề 16</span> ĐỌC HIỂU (8 CÂU)<!--[cite: 6] --></li>
-                        </ul>
-                    </div>
-                </div>
-            </details>
-            
-            <details class="reveal">
-                <summary>GIAI ĐOẠN 2: ÔN TẬP CHUYÊN SÂU THEO TỪNG DẠNG ĐỀ<!--[cite: 6] --></summary>
-                <div class="details-content skill-grid">
-                    <div class="skill-card">
-                        <ul class="session-list">
-                            <li><span class="sess-tag">Dạng bài 1</span> ĐỌC ĐIỀN THÔNG BÁO - TỜ RƠI<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng bài 3</span> SẮP XẾP CÂU<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng bài 4</span> ĐỌC ĐIỀN KHUYẾT THÔNG TIN<!--[cite: 6] --></li>
-                            <li><span class="sess-tag">Dạng bài 5</span> ĐỌC HIỂU (1 BÀI 8 CÂU + 1 BÀI 10 CÂU)<!--[cite: 6] --></li>
-                        </ul>
-                    </div>
-                </div>
-            </details>
-
-            <details class="reveal end-of-roadmap">
-                <summary>GIAI ĐOẠN 3: LUYỆN ĐỀ<!--[cite: 6] --></summary>
-                <div class="details-content">
-                    <p style="color: var(--text-muted); font-size: 1.1rem; padding: 20px;">Thực chiến với các bộ đề bám sát cấu trúc thi THPT Quốc gia của Bộ GD&ĐT.</p>
-                </div>
-            </details>
         </div>
     </div>
 </div>
 
 <!-- Toast Notification -->
-<div id="toast">Đã sao chép vào khay nhớ tạm <i class="fas fa-check-circle"></i></div>
+<div id="toast">Đã sao chép vào khay nhớ tạm <i class="fas fa-check-circle" style="color: #10b981;"></i></div>
 
 <!-- Back to top button -->
 <button onclick="scrollToTop()" id="btn-back-to-top" title="Lên đầu trang">
@@ -782,83 +1504,149 @@
 </button>
 
 <script>
-    // 1. DATA BÁO GIÁ HỌC PHÍ
+    // 1. TYPING EFFECT IN HERO HEADER
+    const phrases = [
+        "Gia Sư Tiếng Anh",
+        "Chứng chỉ IELTS 7.5 (Writing 7.5)",
+        "Chuyên Luyện Thi IELTS • Vào 10 • THPT QG",
+        "Phương Pháp Tư Duy Logic - Không Học Vẹt"
+    ];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typingEl = document.getElementById("typing-text");
+
+    function typeEffect() {
+        const currentPhrase = phrases[phraseIdx];
+        if (isDeleting) {
+            typingEl.textContent = currentPhrase.substring(0, charIdx - 1);
+            charIdx--;
+        } else {
+            typingEl.textContent = currentPhrase.substring(0, charIdx + 1);
+            charIdx++;
+        }
+
+        let speed = isDeleting ? 35 : 70;
+        if (!isDeleting && charIdx === currentPhrase.length) {
+            speed = 2200;
+            isDeleting = true;
+        } else if (isDeleting && charIdx === 0) {
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % phrases.length;
+            speed = 400;
+        }
+        setTimeout(typeEffect, speed);
+    }
+    document.addEventListener("DOMContentLoaded", () => setTimeout(typeEffect, 1000));
+
+    // 2. DATA BÁO GIÁ HỌC PHÍ & ANIMATED COUNTER
     const pricingData = {
-        ielts: { 
-            group_onl: 150000, 
-            "1v1_onl": 240000, 
-            "1v1_off": 300000 
+        ielts: {
+            group_onl: 150000,
+            "1v1_onl": 240000,
+            "1v1_off": 300000
         },
-        basic: { 
-            group_onl: 100000, 
-            "1v1_onl": 180000, 
-            "1v1_off": 250000 
+        basic: {
+            group_onl: 100000,
+            "1v1_onl": 180000,
+            "1v1_off": 250000
         },
-        exam: { 
-            group_onl: 150000, 
-            "1v1_onl": 200000, 
-            "1v1_off": 300000 
+        exam: {
+            group_onl: 150000,
+            "1v1_onl": 200000,
+            "1v1_off": 300000
         }
     };
 
+    let currentDisplayedTotal = 0;
+    let priceAnimFrame = null;
+
+    function animatePriceValue(start, end, duration) {
+        if (priceAnimFrame) cancelAnimationFrame(priceAnimFrame);
+        const startTime = performance.now();
+        const totalEl = document.getElementById('calc-total');
+
+        function step(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(start + (end - start) * easeOut);
+            totalEl.innerText = new Intl.NumberFormat('vi-VN').format(current) + " VNĐ";
+            if (progress < 1) {
+                priceAnimFrame = requestAnimationFrame(step);
+            } else {
+                currentDisplayedTotal = end;
+            }
+        }
+        priceAnimFrame = requestAnimationFrame(step);
+    }
+
     function updateCalculator() {
         const course = document.querySelector('input[name="calc_course"]:checked').value;
-        const formatInputs = document.querySelectorAll('input[name="calc_format"]');
-        
-        // Disable/Enable hình thức học offline (Vì lớp Nhóm chỉ có Online)
-        formatInputs.forEach(input => {
-            const label = input.nextElementSibling;
-            if (input.value === 'group_onl') {
-                // Nhóm mặc định là online
-            }
-        });
+        const format = document.querySelector('input[name="calc_format"]:checked').value;
+        const freq = parseInt(document.querySelector('input[name="calc_freq"]:checked').value);
 
-        // Đọc giá trị đang chọn
-        let format = document.querySelector('input[name="calc_format"]:checked').value;
-        
-        // Fix lỗi nếu user đang chọn Offline nhưng lại chuyển sang Học nhóm
-        if (format === '1v1_off' && course === 'group_onl') {
-            document.getElementById('format_group_onl').checked = true;
-            format = 'group_onl';
-        }
+        const pricePerSession = pricingData[course][format];
+        const totalMonthly = pricePerSession * freq;
 
-        const freq = document.querySelector('input[name="calc_freq"]:checked').value;
-        
-        // Tính toán
-        let pricePerSession = pricingData[course][format];
-        let totalMonthly = pricePerSession * parseInt(freq);
-
-        // Hiển thị ra màn hình
-        document.getElementById('calc-total').innerText = new Intl.NumberFormat('vi-VN').format(totalMonthly) + " VNĐ";
-        document.getElementById('calc-detail').innerText = "Đơn giá: " + new Intl.NumberFormat('vi-VN').format(pricePerSession) + " VNĐ / buổi";
+        animatePriceValue(currentDisplayedTotal, totalMonthly, 450);
+        document.getElementById('calc-detail').innerText =
+            "Đơn giá: " + new Intl.NumberFormat('vi-VN').format(pricePerSession) + " VNĐ / buổi • " + freq + " buổi / tháng";
     }
 
-    // Khởi tạo máy tính lần đầu
     document.addEventListener('DOMContentLoaded', updateCalculator);
 
-    // 2. TABS LOGIC
-    function openTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(el => {
-            el.classList.remove('active');
-        });
+    // 3. TABS SWITCHING LOGIC
+    function openTab(tabId, btnEl) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        
-        const selectedTab = document.getElementById(tabId);
-        selectedTab.classList.add('active');
-        event.currentTarget.classList.add('active');
-        
-        setTimeout(() => revealElements(), 100);
-        window.scrollTo({ top: document.querySelector('.tabs-nav').offsetTop - 20, behavior: 'smooth' });
+
+        document.getElementById(tabId).classList.add('active');
+        if (btnEl) btnEl.classList.add('active');
+
+        setTimeout(() => revealElements(), 80);
     }
 
-    // 3. SCROLL REVEAL & PROGRESS BAR
+    // 4. SEARCH & EXPAND/COLLAPSE ROADMAP TOOLS
+    function toggleAllDetails(containerId, openState) {
+        const container = document.getElementById(containerId);
+        container.querySelectorAll('details.stage-details').forEach(d => {
+            d.open = openState;
+        });
+    }
+
+    function filterSessions(containerId, query) {
+        const container = document.getElementById(containerId);
+        const normalized = query.trim().toLowerCase();
+        const items = container.querySelectorAll('.session-list li');
+
+        if (!normalized) {
+            items.forEach(li => {
+                li.style.display = 'flex';
+                li.classList.remove('highlight-match');
+            });
+            return;
+        }
+
+        toggleAllDetails(containerId, true);
+        items.forEach(li => {
+            const text = li.innerText.toLowerCase();
+            if (text.includes(normalized)) {
+                li.style.display = 'flex';
+                li.classList.add('highlight-match');
+            } else {
+                li.style.display = 'none';
+                li.classList.remove('highlight-match');
+            }
+        });
+    }
+
+    // 5. SCROLL REVEAL & PROGRESS BAR
     function revealElements() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 50;
-            if (elementTop < windowHeight - elementVisible) {
+        const reveals = document.querySelectorAll(".reveal");
+        const windowHeight = window.innerHeight;
+        for (let i = 0; i < reveals.length; i++) {
+            const elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 40) {
                 reveals[i].classList.add("active");
             }
         }
@@ -866,13 +1654,13 @@
 
     window.addEventListener("scroll", function() {
         revealElements();
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
         document.getElementById("progress-bar").style.width = scrolled + "%";
 
-        let backToTopBtn = document.getElementById("btn-back-to-top");
-        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+        const backToTopBtn = document.getElementById("btn-back-to-top");
+        if (winScroll > 450) {
             backToTopBtn.style.display = "block";
         } else {
             backToTopBtn.style.display = "none";
@@ -883,16 +1671,17 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 4. COPY TO CLIPBOARD & TOAST
+    // 6. COPY TO CLIPBOARD & TOAST
     function copyText(text) {
         navigator.clipboard.writeText(text).then(function() {
-            var toast = document.getElementById("toast");
+            const toast = document.getElementById("toast");
+            toast.innerHTML = `Đã sao chép: <strong>${text}</strong> <i class="fas fa-check-circle" style="color: #10b981;"></i>`;
             toast.className = "show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+            setTimeout(function() { toast.className = toast.className.replace("show", ""); }, 2800);
         });
     }
 
-    // 5. DARK/LIGHT MODE TOGGLE
+    // 7. DARK/LIGHT MODE TOGGLE
     function toggleTheme() {
         const body = document.body;
         const icon = document.getElementById('theme-icon');
@@ -906,30 +1695,37 @@
             localStorage.setItem('theme', 'dark');
         }
     }
-    
+
     if (localStorage.getItem('theme') === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
         document.getElementById('theme-icon').className = 'fas fa-sun';
     }
 
-    // 6. CONFETTI EFFECT
+    // 8. CONFETTI EFFECT
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     let particles = [];
-    
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
     function createConfetti() {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 90; i++) {
             particles.push({
-                x: canvas.width / 2, y: canvas.height / 2 + 200,
+                x: canvas.width / 2,
+                y: canvas.height / 2 + 150,
                 r: Math.random() * 6 + 2,
-                dx: Math.random() * 10 - 5, dy: Math.random() * -10 - 5,
-                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                dx: Math.random() * 12 - 6,
+                dy: Math.random() * -12 - 4,
+                color: `hsl(${Math.random() * 360}, 90%, 55%)`
             });
         }
     }
-    
+
     function drawConfetti() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((p, index) => {
@@ -939,7 +1735,7 @@
             ctx.fill();
             p.x += p.dx;
             p.y += p.dy;
-            p.dy += 0.2; 
+            p.dy += 0.22;
             if (p.y > canvas.height) particles.splice(index, 1);
         });
         if (particles.length > 0) requestAnimationFrame(drawConfetti);
@@ -947,15 +1743,13 @@
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (!entry.target.classList.contains('popped')) {
-                    entry.target.classList.add('popped');
-                    createConfetti();
-                    drawConfetti();
-                }
+            if (entry.isIntersecting && !entry.target.classList.contains('popped')) {
+                entry.target.classList.add('popped');
+                createConfetti();
+                drawConfetti();
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.4 });
 
     document.querySelectorAll('.end-of-roadmap').forEach(el => observer.observe(el));
     setTimeout(() => revealElements(), 100);
